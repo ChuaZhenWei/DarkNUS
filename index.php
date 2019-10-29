@@ -4,6 +4,10 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
+if (!isset($_SESSION['user_id'])) { ?>
+    <h2>Access Denied. User Not Logged In</h2>
+<?php } else {
+
 $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
@@ -30,3 +34,6 @@ if ($role == 'Student') {
         ?>
     </body>
 </html>
+<?php
+}
+?>
