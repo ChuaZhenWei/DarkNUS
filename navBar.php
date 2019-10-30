@@ -20,7 +20,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="index.php"><span style="color: mintcream;">Dark</span><span style="color: darkorange;">NUS</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -29,13 +29,13 @@
                             <a class="nav-link" href="index.php">Dashboard <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Link</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Link</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">Link</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -49,8 +49,38 @@
                 </div>
             </nav>
         <?php }
-         elseif($_SESSION['user_role']=='Professor'){ ?>
-             <a href="index.php">Home</a> | <a href="showReport.php">Show Report</a> | <a href="changePassword.php">Change Password</a> | <a href="doLogout.php">Logout</a>
+        elseif($_SESSION['user_role']=='Professor'){ ?>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="index.php"><span style="color: mintcream;">Dark</span><span style="color: darkorange;">NUS</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.php">Dashboard <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="nav-link" href="changePassword.php"> <?php echo "$name"; ?></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="doLogout.php"> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         <?php }
         }
 ?>
