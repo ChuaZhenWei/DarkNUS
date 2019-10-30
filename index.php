@@ -12,10 +12,6 @@ $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
-    $query = "SELECT *
-        FROM enrolls
-        WHERE studid = '$id';";
-    
     $course = "SELECT E.studid AS UserID, E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName
         FROM Enrolls E
         INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem 
