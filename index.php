@@ -16,9 +16,12 @@ if ($role == 'Student') {
         FROM enrolls
         WHERE studid = '$id';";
     
-    $course = "SELECT U.userID AS UserID, E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName "
-            . "FROM Users U INNER JOIN Enrolls E ON U.userID = E.studID INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem INNER JOIN Professors P ON T.profID = P.profID INNER JOIN Courses C ON E.courseName = C.courseName "
-            . "WHERE U.userid = '$id';";
+    $course = "SELECT E.studid AS UserID, E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName
+        FROM Enrolls E
+        INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem 
+        INNER JOIN Professors P ON T.profID = P.profID 
+        INNER JOIN Courses C ON E.courseName = C.courseName
+        WHERE E.studid = '$id'";
     
 } elseif ($role == 'Professor') {
     $query = "SELECT *
