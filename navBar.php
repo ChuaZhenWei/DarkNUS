@@ -84,6 +84,6 @@
         <?php }
         }
 ?>
-        <hr>
+        <br>
     </body>
 </html>
