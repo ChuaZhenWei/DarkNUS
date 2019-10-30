@@ -45,8 +45,6 @@ if (!isset($_SESSION['user_id'])){
 <?php }
 
 else{
-    echo "You are already logged in </br>
-        <a href='index.php'>home</a></br>";
-    echo $_SESSION['user_id']. " as " .$_SESSION['name']. " " .$_SESSION['user_role'];
+    header('location:index.php');
 }
 ?>

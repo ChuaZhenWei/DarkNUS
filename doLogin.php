@@ -49,8 +49,7 @@ if (!isset($_SESSION['user_id'])){
     }
 }
 else{
-    echo "You are already logged in </br>
-        <a href='index.php'>Home</a>";
+    header('location:index.php');
 }
 pg_close($link);
 ?>
