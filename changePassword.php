@@ -48,8 +48,7 @@ else{ ?>
                     }
                     alert(msg);
                 }
-            }
-            
+            }   
         </script>
     </head>
     <body>
