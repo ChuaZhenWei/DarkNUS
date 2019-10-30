@@ -36,23 +36,22 @@ $result = pg_query($course);
     <body>
         <h2>Courses</h2>
         <table>
-            <thead>
-                <tr>
-                    <th>Course Name</th>
-                    <th>Faculty</th>
-                    <th>Professor Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <?php while ($row = pg_fetch_row($result)) {
+            <col width = "500">
+            <col width = "200">
+            <col width = "200">
+            <tr>
+                <th>Course Name</th>
+                <th>Faculty</th>
+                <th>Professor Name</th>
+            </tr>
+            <?php while ($row = pg_fetch_row($result)) {
+                echo "<tr>";
                     echo "<td> $row[1]</td>";
                     echo "<td> $row[2]</td>";
                     echo "<td> $row[3]</td>";
-                }
-                ?>
-                </tr>
-            </tbody>
+                echo "<tr>";
+            }
+            ?>
         </table>
     </body>
 </html>
