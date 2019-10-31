@@ -50,7 +50,7 @@ if ($role == 'Student') {
                             </tr>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Thread Title</a></h4>
+                                    <h4><a href="#">Forum Name</a></h4>
                                     <p>Course Name</p>
                                 </td>
                                 <td>
