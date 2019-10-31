@@ -22,7 +22,7 @@ if ($role == 'Student') {
 } elseif ($role == 'Professor') {
     $query = "SELECT *
         FROM teaches
-        WHERE profif = '$id'";
+        WHERE profid = '$id'";
 }
 
 $result = pg_query($course);
@@ -34,10 +34,7 @@ $result = pg_query($course);
     </head>
     <body>
         <h2>Courses</h2>
-        <table>
-            <col width = "500">
-            <col width = "200">
-            <col width = "200">
+        <table width="600" border="0" cellpadding="1" cellspacing="1">
             <tr>
                 <th>Course Name</th>
                 <th>Faculty</th>
