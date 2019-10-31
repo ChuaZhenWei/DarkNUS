@@ -32,7 +32,7 @@
                             <a class="nav-link" href="addCourse.php">Add Courses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="forum.php">Forum</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
