@@ -28,7 +28,7 @@ $academicYear = substr($selection, 0, 4);
 $semester = substr($selection, 7, 1);
 
 if ($role == 'Student') {
-    $course = "SELECT T.courseName as CourseName, C.faculty as Faculty, P.name as ProfName
+    $course = "SELECT T.courseName as CourseName, C.faculty as Faculty, P.name as ProfName, T.lectureDay, T.startTime, T.endTime
             FROM Professors P NATURAL JOIN Teaches T INNER JOIN Courses C ON T.courseName = C.courseName
             WHERE acadYear = '$academicYear' AND sem = '$semester'";
     
@@ -66,6 +66,9 @@ $results = pg_query($course)
                     <th>Course Name</th>
                     <th>Faculty</th>
                     <th>Professor Name</th>
+                    <th>Lecture Day</th>
+                    <th>Lecture Start Time</th>
+                    <th>Lecture End Time</th>
                 </tr>
                 <?php
                 while($row = pg_fetch_row($results)) {
@@ -73,6 +76,9 @@ $results = pg_query($course)
                     echo "<td> $row[0]</td>";
                     echo "<td> $row[1]</td>";
                     echo "<td> $row[2]</td>";
+                    echo "<td> $row[3]</td>";
+                    echo "<td> $row[4]</td>";
+                    echo "<td> $row[5]</td>";
                     echo "<tr>";
                 }
                 ?>
