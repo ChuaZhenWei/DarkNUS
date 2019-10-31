@@ -19,20 +19,13 @@ if (!isset($_SESSION['user_id'])) { ?>
 <?php } else {
 
 $id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
     $tutorial = "SELECT courseName, acadYear, sem, tutID, tutDay, startTime, endTime 
             FROM Belongs B NATURAL JOIN Tutorial_Groups TG
             WHERE studID = '$id'";
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-            FROM Tutorial_Groups
-            WHERE profID = '$id'";
 }
-
-debug_to_console($id);
 
 $results = pg_query($tutorial);
 ?>
