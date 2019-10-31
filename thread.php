@@ -29,32 +29,40 @@ if ($role == 'Student') {
         <title></title>
     </head>
     <body>
-        <h2>Forum</h2>
+        <h2>Threads</h2>
             <div class="card">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Forum</li>
-                    </ol>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">"Forum Name"</li>                    
+                </ol>
+                </nav>
+                <nav class="navbar">
+                    <button type="button" class="btn btn-primary">Create New Thread</button>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </nav>
                 <div class="card-body">
                     <table cellspacing="1000">
                         <tbody>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Forum Name #1</a></h4>
-                                    <p>Course Name</p>
+                                    <h4><a href="#">Thread Title #1</a></h4>
+                                    <p>Name of the thread creator</p>
                                 </td>
                                 <td>
-                                    <p>Number of discussion threads</p>
+                                    <p>Number of replies</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Forum Name #2</a></h4>
-                                    <p>Course Name</p>
+                                    <h4><a href="#">Thread Title #2</a></h4>
+                                    <p>Name of the thread creator</p>
                                 </td>
                                 <td>
-                                    <p>Number of discussion threads</p>
+                                    <p>Number of replies</p>
                                 </td>
                             </tr>
                         </tbody>
