@@ -30,9 +30,37 @@ if ($role == 'Student') {
     </head>
     <body>
         <h2>Forum</h2>
-        <div>
-            
-        </div>
+            <div class="card">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Forum</li>
+                    </ol>
+                </nav>
+                <div class="card-body">
+                    <table cellspacing="1000">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h4><a href="#">Thread Title</a></h4>
+                                    <p>Course Name</p>
+                                </td>
+                                <td>
+                                    <p>Number of discussion threads</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h4><a href="#">Thread Title</a></h4>
+                                    <p>Course Name</p>
+                                </td>
+                                <td>
+                                    <p>Number of discussion threads</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
     </body>
 </html> 
 <?php
