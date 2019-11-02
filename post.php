@@ -4,24 +4,32 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
-if (!isset($_SESSION['user_id'])) { ?>
-    <h2>Access Denied. User Not Logged In</h2>
-<?php } else {
+if (!isset($_SESSION['user_id'])) {
+    header('location:login.php');
+} else {
 
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-
-if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
-        WHERE studid = '$id'";
+    $forumName = $_GET['fname'];
+    $courseName = $_GET['cname'];
+    $acadYear = $_GET['ay'];
+    $semester = $_GET['sem'];
+    $threadTitle = $_GET['threadTitle'];
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
-}
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
 
+    if ($role == 'Student') {
+        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
+            FROM Threads T
+            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
+            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
+    } elseif ($role == 'Professor') {
+        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
+            FROM Threads T
+            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
+            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
+    }
+
+    $results = pg_query($post);
 ?>
 <html>
     <head>
@@ -34,8 +42,17 @@ if ($role == 'Student') {
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
-                    <li class="breadcrumb-item"><a href="thread.php">"Forum Name"</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">"Thread Name"</li>                    
+                            <li class="breadcrumb-item">
+                        <?php
+                        echo "<a href='thread.php?fname=$forumName&amp;cname=$courseName&amp;ay=$acadYear&amp;sem=$semester'>";
+                        echo $forumName;
+                        ?>
+                        </a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                    <?php
+                    echo $threadTitle;
+                    ?>
+                    </li>                    
                 </ol>
                 </nav>
                 <div class="card-body">                   

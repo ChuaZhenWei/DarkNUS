@@ -64,7 +64,8 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = pg_fetch_row($results)) {
                                 echo "<tr>";
                                 echo "<td>";
-                                echo "<h4><a href='post.php'>$row[4]</a></h4>";
+                                echo "<h4><a href='post.php?fname=$row[3]&amp;cname=$row[0]&amp;ay=$row[1]
+                                        &amp;sem=$row[2]&amp;threadTitle=$row[4]]'>$row[4]</a></h4>";
                                 echo "</td>";
                                 echo "<td>";
                                 echo "<p>Number of replies: $row[5]</p>";
