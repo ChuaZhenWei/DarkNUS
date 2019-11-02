@@ -67,12 +67,17 @@ if (!isset($_SESSION['user_id'])) {
                         echo "<p>$threadDetails</p>";
                         echo "<br>";
                         ?>
-                    <form>
+                    <form method="post" action="doPost.php  ">
+                        <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
+                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
+                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
+                        <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
                         <div class="form-group">
                             <label for="comment">Comment:</label>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                            <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
                         </div>
-                        <input type="submit" value="Submit">
+                        <input type="submit" name="Action" value="Submit">
                     </form>
                     <hr>
                     <br>
