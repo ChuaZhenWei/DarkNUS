@@ -44,7 +44,7 @@ if (!isset($_SESSION['user_id'])) {
     <body>
         <h2>Tutorial Group</h2>
         <div>
-            <table width="600" border="0" cellpadding="1" cellspacing="1">
+            <table width="700" border="0" cellpadding="1" cellspacing="1">
                 <tr>
                     <th>Course Name</th>
                     <th>Academic Year</th>
@@ -53,17 +53,19 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Tutorial Day</th>
                     <th>Tutorial Start Time</th>
                     <th>Tutorial End Time</th>
+                    <th></th>
                 </tr>
                 <?php
                 while($row = pg_fetch_row($results)) {
                     echo "<tr>";
-                    echo "<td> $row[0]</td>";
-                    echo "<td> $row[1]</td>";
-                    echo "<td> $row[2]</td>";
-                    echo "<td> $row[3]</td>";
-                    echo "<td> $row[4]</td>";
-                    echo "<td> $row[5]</td>";
-                    echo "<td> $row[6]</td>";
+                    echo "<td>$row[0]</td>";
+                    echo "<td>$row[1]</td>";
+                    echo "<td>$row[2]</td>";
+                    echo "<td>$row[3]</td>";
+                    echo "<td>$row[4]</td>";
+                    echo "<td>$row[5]</td>";
+                    echo "<td>$row[6]</td>";
+                    echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php' role='button'>View</a></td>";
                     echo "<tr>";
                 }
                 ?>
