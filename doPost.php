@@ -25,9 +25,10 @@ if (!isset($_SESSION['user_id'])){
         echo $threadTitle;
         echo $postDetail;
         
-        $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, studID)
+        $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, userID, posted)
                 VALUES ('$courseName', $acadYear, $semester, '$forumName', '$threadTitle', 
-                '$postDetail', '$id')";
+                '$postDetail', '$id', current_timestamp)";
+        
         
         pg_query($insert);
         

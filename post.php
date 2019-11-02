@@ -16,20 +16,22 @@ if (!isset($_SESSION['user_id'])) {
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
-
-    if ($role == 'Student') {
-        $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T NATURAL JOIN Students S
-            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
-            ORDER BY T.posted";
-    } elseif ($role == 'Professor') {
-        $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T NATURAL JOIN Students S
-            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
-            ORDER BY T.posted";
-    }
+    
+    $post = "
+        SELECT *
+        FROM
+        (
+        SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        FROM Threads T INNER JOIN Students S ON T.userID = S.studID 
+        WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
+        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        UNION
+        SELECT P.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        FROM Threads T INNER JOIN Professors P ON T.userID = P.profID
+        WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
+        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        ) AS A
+        ORDER BY A.posted";
 
     $results = pg_query($post);
 ?>
