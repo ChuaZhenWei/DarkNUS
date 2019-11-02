@@ -21,8 +21,8 @@ if ($role == 'Student') {
         INNER JOIN Professors P ON T.profID = P.profID 
         INNER JOIN Courses C ON E.courseName = C.courseName
         WHERE E.studid = '$id'
-        AND acadyear = '$acadYear'
-        AND sem = '$sem'";
+        AND E.acadyear = '$acadYear'
+        AND E.sem = '$sem'";
     
 } elseif ($role == 'Professor') {
     $course = "SELECT T.coursename, C.faculty, T.lectureday, T.starttime, T.endtime

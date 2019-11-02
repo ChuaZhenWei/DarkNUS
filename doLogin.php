@@ -68,5 +68,5 @@ if (!isset($_SESSION['user_id'])){
 else{
     header('location:index.php');
 }
-pg_close($link);
+pg_close();
 ?>
