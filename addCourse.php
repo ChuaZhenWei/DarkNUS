@@ -32,10 +32,6 @@ if ($role == 'Student') {
             FROM Professors P NATURAL JOIN Teaches T INNER JOIN Courses C ON T.courseName = C.courseName
             WHERE acadYear = '$academicYear' AND sem = '$semester'";
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
 }
 
 $results = pg_query($course)
