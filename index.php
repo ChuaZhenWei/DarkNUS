@@ -12,7 +12,7 @@ $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
-    $course = "SELECT E.studid AS UserID, E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName,
+    $course = "SELECT E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName,
         T.lectureDay, T.startTime, T.endTime
         FROM Enrolls E
         INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem 
@@ -21,8 +21,9 @@ if ($role == 'Student') {
         WHERE E.studid = '$id'";
     
 } elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
+    $course = "SELECT T.coursename, C.faculty, T.lectureday, T.starttime, T.endtime
+        FROM TEACHES T
+        JOIN COURSES C ON T.coursename = C.coursename
         WHERE profid = '$id'";
 }
 
@@ -35,23 +36,34 @@ $result = pg_query($course);
     </head>
     <body>
         <h2>Courses</h2>
-        <table width="600" border="0" cellpadding="1" cellspacing="1">
+        <table width="1500" border="0" cellpadding="1" cellspacing="1">
+            <col width = "500">
+            <col width = "200">
+            <col width = "200">
+            <col width = "200">
+            <col width = "200">
+            <col width = "200">
             <tr>
                 <th>Course Name</th>
                 <th>Faculty</th>
-                <th>Professor Name</th>
+                <?php
+                if ($role == 'Student') {
+                    echo "<th>Professor Name</th>";
+                } ?>
                 <th>Lecture Day</th>
                 <th>Lecture Start Time</th>
                 <th>Lecture End Time</th>
             </tr>
             <?php while ($row = pg_fetch_row($result)) {
                 echo "<tr>";
+                    echo "<td> $row[0]</td>";
                     echo "<td> $row[1]</td>";
                     echo "<td> $row[2]</td>";
                     echo "<td> $row[3]</td>";
                     echo "<td> $row[4]</td>";
-                    echo "<td> $row[5]</td>";
-                    echo "<td> $row[6]</td>";
+                    if ($role == 'Student') {
+                        echo "<td> $row[5]</td>";
+                    }
                 echo "<tr>";
             }
             ?>
