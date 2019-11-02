@@ -19,10 +19,12 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $sem = $_SESSION['sem'];
 
     if ($role == 'Professor') {
-        $request = "SELECT courseName, acadYear, sem, name, email, faculty
-            FROM Requests NATURAL JOIN Students
+        $request = "SELECT *
+            FROM request_list
             WHERE profID = '$id'"; 
     } 
 
@@ -35,33 +37,42 @@ if (!isset($_SESSION['user_id'])) {
     </head>
     <body>
         <h2>Enroll Request List</h2>
-        <table width="1500" border="0" cellpadding="1" cellspacing="1">
-            <col width = "500">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <tr>
-                <th>Course Name</th>
-                <th>Academic Year</th>
-                <th>Semester</th>
-                <th>Student Name</th>
-                <th>Student Email</th>
-                <th>Student Faculty</th>
-            </tr>
-            <?php while ($row = pg_fetch_row($results)) {
-                echo "<tr>";
-                    echo "<td> $row[0]</td>";
-                    echo "<td> $row[1]</td>";
-                    echo "<td> $row[2]</td>";
-                    echo "<td> $row[3]</td>";
-                    echo "<td> $row[4]</td>";
-                    echo "<td> $row[5]</td>";
-                echo "<tr>";
-            }
-            ?>
-        </table>
+        <form action = "doAcceptRequest.php" method ="post">
+            <table width="1500" border="0" cellpadding="1" cellspacing="1">
+                <col width = "80">
+                <col width = "500">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <tr>
+                    <th>Select</th>
+                    <th>Course Name</th>
+                    <th>Academic Year</th>
+                    <th>Semester</th>
+                    <th>Student Name</th>
+                    <th>Student Email</th>
+                    <th>Student Faculty</th>
+                </tr>
+                <?php while ($row = pg_fetch_row($results)) { 
+                    echo "<tr>"; ?>
+                        <td><input type = 'radio' name = 'choice' value = '<?php $row[0] ?>'></td>
+                        <?php
+                        echo "<td>$row[2]</td>";
+                        echo "<td>$row[3]</td>";
+                        echo "<td>$row[4]</td>";
+                        echo "<td>$row[5]</td>";
+                        echo "<td>$row[6]</td>";
+                        echo "<td>$row[7]</td>";
+                    echo "<tr>";
+                } 
+                ?>
+            </table>
+            <br />
+            <br />
+            <input type="submit" value="Submit">
+        </form>  
     </body>
 </html>
 <?php
