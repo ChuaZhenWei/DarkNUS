@@ -7,21 +7,23 @@ include ('navBar.php');
 if (!isset($_SESSION['user_id'])) {
     header('location:login.php');
 } else {
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
+    $acadYear = pg_query("SELECT acadyear FROM Semesters");
+    $sem = pg_query("SELECT sem FROM Semesters");
 
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-$acadYear = pg_query("SELECT acadyear FROM Semesters");
-$sem = pg_query("SELECT sem FROM Semesters");
+    $selection = $_POST['selected'];
+    $academicYear = substr($selection, 0, 4);
+    $semester = substr($selection, 7, 1);
 
-$selection = $_POST['selected'];
-$academicYear = substr($selection, 0, 4);
-$semester = substr($selection, 7, 1);
-
-if ($role == 'Student') {
-    $course = "SELECT T.courseName as CourseName, C.faculty as Faculty, P.name as ProfName, T.lectureDay, T.startTime, T.endTime
-            FROM Professors P NATURAL JOIN Teaches T INNER JOIN Courses C ON T.courseName = C.courseName
-            WHERE acadYear = '$academicYear' AND sem = '$semester'";
-    
+    if ($role == 'Student') {
+        $course = "SELECT T.courseName as CourseName, C.faculty as Faculty, P.name as ProfName, T.lectureDay, T.startTime, T.endTime
+                FROM Professors P NATURAL JOIN Teaches T INNER JOIN Courses C ON T.courseName = C.courseName
+                WHERE acadYear = $academicYear AND sem = $semester 
+                EXCEPT
+                SELECT T.courseName, C.faculty, P.name, T.lectureDay, T.startTime, T.endTime
+                FROM Enrolls E NATURAL JOIN Teaches T NATURAL JOIN Professors P INNER JOIN Courses C ON T.courseName = C.courseName
+                WHERE E.studID = '$id'";
 }
 
 $results = pg_query($course)
