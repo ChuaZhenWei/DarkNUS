@@ -12,7 +12,14 @@ $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
-    $forum = "SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
+    $forum = "
+        SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
+        FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
+        AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
+        WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL
+        GROUP BY F.forumName, F.courseName, F.acadYear, F.sem
+        UNION
+        SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
         FROM Belongs B NATURAL JOIN Forums F
         INNER JOIN Threads T ON F.courseName = T.courseName
         AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
@@ -20,7 +27,14 @@ if ($role == 'Student') {
         GROUP BY F.forumName, F.courseName, F.acadYear, F.sem";
     
 } elseif ($role == 'Professor') {
-    $forum = "SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
+    $forum = "
+        SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
+        FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
+        AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
+        WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL
+        GROUP BY F.forumName, F.courseName, F.acadYear, F.sem
+        UNION
+        SELECT F.forumName, F.courseName, F.acadYear, F.sem, COUNT(*) AS noOfThreads
         FROM Forums F INNER JOIN Threads T ON F.courseName = T.courseName
         AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
         WHERE F.profid = '$id'
@@ -50,7 +64,7 @@ $result = pg_query($forum);
                             while ($row = pg_fetch_row($result)) {
                                 echo "<tr>";
                                 echo "<td>";
-                                echo "<h4><a href='thread.php'>$row[0]</a></h4>";
+                                echo "<h4><a href='thread.php?fname=$row[0]&amp;cname=$row[1]&amp;ay=$row[2]&amp;sem=$row[3]'>$row[0]</a></h4>";
                                 echo "<p>$row[1]</p>";
                                 echo "<p>Academic Year $row[2], ";
                                 echo "Semester $row[3]</p>"; 
