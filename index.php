@@ -10,6 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 
 $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
+$acadYear = $_SESSION['acadYear'];
+$sem = $_SESSION['sem'];
 
 if ($role == 'Student') {
     $course = "SELECT E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName,
