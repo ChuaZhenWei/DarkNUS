@@ -49,7 +49,7 @@ if ($role == 'Student') {
                         <tbody>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Thread Title #1</a></h4>
+                                    <h4><a href="post.php">Thread Title #1</a></h4>
                                     <p>Name of the thread creator</p>
                                 </td>
                                 <td>
@@ -58,7 +58,7 @@ if ($role == 'Student') {
                             </tr>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Thread Title #2</a></h4>
+                                    <h4><a href="post.php">Thread Title #2</a></h4>
                                     <p>Name of the thread creator</p>
                                 </td>
                                 <td>
