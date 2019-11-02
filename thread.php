@@ -30,6 +30,18 @@ if (!isset($_SESSION['user_id'])) {
             GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
     }
     
+    if(isset($_POST['searchThread'])){       
+        if(isset($_POST['threadTitle']) && !empty($_POST['threadTitle']))
+        {  
+            $word = $_POST['threadTitle'];
+            $query= "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+                FROM Threads T WHERE lower(threadTitle) LIKE '%$word%' AND forumName = '$forumName' AND courseName = '$courseName'
+                AND acadYear = $acadYear AND sem = $semester
+                GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
+
+            $thread = $query;
+        }       
+    }
     $results = pg_query($thread);
 ?>
 <html>
@@ -62,9 +74,9 @@ if (!isset($_SESSION['user_id'])) {
                             ?>          
                         </li>       
                     </ul>
-                    <form class="form-inline my-2 my-sm-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-sm-0" method="post" action="">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search" name="threadTitle">
+                        <button name="searchThread" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>
                 <div class="card-body">
