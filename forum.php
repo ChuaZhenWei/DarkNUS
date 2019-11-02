@@ -12,9 +12,12 @@ $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
-    $forum = "SELECT forumName, courseName
+    $forum = "SELECT F.forumName, F.courseName, COUNT(*) AS noOfThreads
         FROM Belongs B NATURAL JOIN Forums F
-        WHERE studid = '$id'";
+        INNER JOIN Threads T ON F.courseName = T.courseName
+        AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
+        WHERE B.studid = '$id'
+        GROUP BY F.forumName, F.courseName";
     
 } elseif ($role == 'Professor') {
     $forum = "SELECT forumName, courseName
@@ -43,13 +46,14 @@ $result = pg_query($forum);
                         <tbody>
                             <?php
                             while ($row = pg_fetch_row($result)) {
+                                
                                 echo "<tr>";
                                 echo "<td>";
                                 echo "<h4><a href='thread.php'>$row[0]</a></h4>";
                                 echo "<p>$row[1]</p>";
                                 echo "</td>";
                                 echo "<td>";
-                                echo "<p>Number of discussion threads</p>";
+                                echo "<p>Number of Discussion Threads: $row[2]</p>";
                                 echo "</td>";
                                 echo "</tr>";
                             }
