@@ -65,7 +65,7 @@
                         <a class="nav-link" href="requests.php">Request List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="forum.php">Forum</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="tutorialGroup.php">Tutorial Group</a>
