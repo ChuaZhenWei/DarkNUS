@@ -7,21 +7,13 @@ include ('navBar.php');
 if (!isset($_SESSION['user_id'])) { ?>
     <h2>Access Denied. User Not Logged In</h2>
 <?php } else {
-
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-
-if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
-        WHERE studid = '$id'";
+    $forumName = $_GET['fname'];
+    $courseName = $_GET['cname'];
+    $acadYear = $_GET['ay'];
+    $semester = $_GET['sem'];
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
-}
-
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
 ?>
 <html>
     <head>
@@ -33,12 +25,19 @@ if ($role == 'Student') {
             <div class="card">
                 <div class="card-body">                   
                     <h4>Start a Discussion Thread</h4>
-                    <p class="font-weight-light">for "Forum Name"</p>
+                    <p class="font-weight-light">for
+                    <?php
+                        echo $forumName
+                    ?></p>
                     <hr>
-                    <form method="post" action="">
+                    <form method="post" action="doCreateThread.php">
+                        <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
+                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
+                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
                         <input class="form-control" name="thread_title" type="text" placeholder="Title"><br>
                         <textarea class="form-control" name="post_content" placeholder="Text (required)" rows="5"></textarea><br>
-                        <input type="submit" value="Create thread">
+                        <input type="submit" name="Action" value="Create thread">
                     </form>
 
                     <hr>
