@@ -18,13 +18,13 @@ if (!isset($_SESSION['user_id'])) {
     $role = $_SESSION['user_role'];
 
     if ($role == 'Student') {
-        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T
+        $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
+            FROM Threads T NATURAL JOIN Students S
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
             AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
     } elseif ($role == 'Professor') {
-        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T
+        $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
+            FROM Threads T NATURAL JOIN Students S
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
             AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
     }
@@ -56,11 +56,17 @@ if (!isset($_SESSION['user_id'])) {
                 </ol>
                 </nav>
                 <div class="card-body">                   
-                    <h4><a href="#">Thread Title</a></h4>
-                    <p>Posted by "Name of poster"</p>
-                    <hr>
-                    <p>Dear Prof, for the past few lectures...</p>
-                    <br>
+                            <h4><a href="#">
+                        <?php
+                        echo $threadTitle;
+                        echo "</a></h4>";
+                        $threadStarter = pg_fetch_result($results, 0, 0);
+                        $threadDetails = pg_fetch_result($results, 0, 6);
+                        echo "<p>Posted by $threadStarter</p>";
+                        echo "<hr>";
+                        echo "<p>$threadDetails</p>";
+                        echo "<br>";
+                        ?>
                     <form>
                         <div class="form-group">
                             <label for="comment">Comment:</label>
@@ -70,9 +76,14 @@ if (!isset($_SESSION['user_id'])) {
                     </form>
                     <hr>
                     <br>
-                    <p>Reply by "Name of poster"</p>
-                    <p>There is no mistake in the updated lecture notes...</p>
-                    <hr>
+                    <?php
+                    $row = pg_fetch_row($results);
+                    while ($row = pg_fetch_row($results)) {
+                        echo "<p>Reply by $row[0]</p>";
+                        echo "<p>$row[6]</p>";
+                        echo "<hr>";
+                    }
+                    ?>
                 </div>
             </div>
     </body>
