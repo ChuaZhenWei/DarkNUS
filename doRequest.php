@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])){
     if (isset($_POST['requestChoice'])){
         $id = $_SESSION['user_id'];
         $requestChoice = $_POST['requestChoice'];
-        echo "TEST $id and $requestChoice<br />";
+        $decision = $_POST['Action'];
         
         $query = "SELECT *
             FROM request_list
@@ -21,10 +21,21 @@ if (!isset($_SESSION['user_id'])){
         if (pg_num_rows($result) == 1) {
             $row=pg_fetch_array($result);
             
-            $insertEnroll = "INSERT INTO ENROLLS (studid, coursename, acadyear, sem)
-                VALUES ('$row[1]', '$row[3]', '$row[4]', '$row[5]')";
+            if ($decision == 'Accept') {
+                $insert = "INSERT INTO ENROLLS (studid, coursename, acadyear, sem)
+                    VALUES ('$row[1]', '$row[3]', '$row[4]', '$row[5]')";
+                
+                pg_query($insert);
+            }
             
-            pg_query($insertEnroll);
+            $delete = "DELETE FROM REQUESTS
+                    WHERE studid = '$row[1]'
+                    AND profid = '$row[2]'
+                    AND coursename = '$row[3]'
+                    AND acadyear = '$row[4]'
+                    AND sem = '$row[5]'";
+            
+            pg_query($delete);
             
             header('location:requests.php');
         }

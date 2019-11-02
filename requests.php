@@ -63,7 +63,8 @@ if (!isset($_SESSION['user_id'])) {
             </table>
             <br />
             <br />
-            <input type="submit" value="Submit">
+            <input type="Submit" name ="Action" value="Accept">
+            <input type="Submit" name ="Action" value="Reject">
         </form>  
     </body>
 </html>
