@@ -12,15 +12,17 @@ $id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
+    $forum = "SELECT forumName, courseName
+        FROM Belongs B NATURAL JOIN Forums F
         WHERE studid = '$id'";
     
 } elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
+    $forum = "SELECT forumName, courseName
+        FROM Forums F 
         WHERE profid = '$id'";
 }
+
+$result = pg_query($forum);
 
 ?>
 <html>
@@ -39,24 +41,19 @@ if ($role == 'Student') {
                 <div class="card-body">
                     <table cellspacing="1000">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h4><a href="thread.php">Forum Name #1</a></h4>
-                                    <p>Course Name</p>
-                                </td>
-                                <td>
-                                    <p>Number of discussion threads</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4><a href="thread.php">Forum Name #2</a></h4>
-                                    <p>Course Name</p>
-                                </td>
-                                <td>
-                                    <p>Number of discussion threads</p>
-                                </td>
-                            </tr>
+                            <?php
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<tr>";
+                                echo "<td>";
+                                echo "<h4><a href='thread.php'>$row[0]</a></h4>";
+                                echo "<p>$row[1]</p>";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "<p>Number of discussion threads</p>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                            ?> 
                         </tbody>
                     </table>
                 </div>
