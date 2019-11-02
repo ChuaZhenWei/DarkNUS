@@ -38,7 +38,7 @@ if ($role == 'Student') {
                 </ol>
                 </nav>
                 <nav class="navbar">
-                    <button type="button" class="btn btn-primary">Create New Thread</button>
+                    <a class="btn btn-primary" href="createThread.php" role="button">Create New Thread</a>
                     <form class="form-inline">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -49,7 +49,7 @@ if ($role == 'Student') {
                         <tbody>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Thread Title #1</a></h4>
+                                    <h4><a href="post.php">Thread Title #1</a></h4>
                                     <p>Name of the thread creator</p>
                                 </td>
                                 <td>
@@ -58,7 +58,7 @@ if ($role == 'Student') {
                             </tr>
                             <tr>
                                 <td>
-                                    <h4><a href="#">Thread Title #2</a></h4>
+                                    <h4><a href="post.php">Thread Title #2</a></h4>
                                     <p>Name of the thread creator</p>
                                 </td>
                                 <td>
