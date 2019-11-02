@@ -20,13 +20,17 @@ if ($role == 'Student') {
         INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem 
         INNER JOIN Professors P ON T.profID = P.profID 
         INNER JOIN Courses C ON E.courseName = C.courseName
-        WHERE E.studid = '$id'";
+        WHERE E.studid = '$id'
+        AND acadyear = '$acadYear'
+        AND sem = '$sem'";
     
 } elseif ($role == 'Professor') {
     $course = "SELECT T.coursename, C.faculty, T.lectureday, T.starttime, T.endtime
         FROM TEACHES T
         JOIN COURSES C ON T.coursename = C.coursename
-        WHERE profid = '$id'";
+        WHERE profid = '$id'
+        AND acadyear = '$acadYear'
+        AND sem = '$sem'";
 }
 
 $result = pg_query($course);
