@@ -53,14 +53,13 @@ if (!isset($_SESSION['user_id'])) {
                 <nav class="navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-primary" href="createThread.php" role="button">Create New Thread</a>
-                            <?php 
+                            <?php
+                            echo "<a class='btn btn-primary' href='createThread.php?fname=$forumName&amp;cname=$courseName&amp;ay=$acadYear&amp;sem=$semester'
+                                role='button'>Create New Thread</a>";
                             if ($role == 'Professor') {
-                                echo "<a class='btn btn-primary' href='addForumTutorialGroup.php' role='button'>Add Tutorial Group</a>";
+                                echo "<a class='btn btn-primary' href='addForumTutorialGroup.php role='button'>Add Tutorial Group</a>";
                             }
-                            ?>
-                            
-                                                       
+                            ?>          
                         </li>       
                     </ul>
                     <form class="form-inline my-2 my-sm-0">
