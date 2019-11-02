@@ -57,7 +57,7 @@ if (!isset($_SESSION['user_id'])) {
                 </tr>
                 <?php while ($row = pg_fetch_row($results)) { 
                     echo "<tr>"; ?>
-                        <td><input type = 'radio' name = 'choice' value = '<?php $row[0] ?>'></td>
+                        <td><input type = 'radio' name = 'requestChoice' value = '<?php $row[0] ?>'></td>
                         <?php
                         echo "<td>$row[2]</td>";
                         echo "<td>$row[3]</td>";
