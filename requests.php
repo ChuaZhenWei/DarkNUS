@@ -25,7 +25,9 @@ if (!isset($_SESSION['user_id'])) {
     if ($role == 'Professor') {
         $request = "SELECT *
             FROM request_list
-            WHERE profID = '$id'"; 
+            WHERE profID = '$id'
+            AND acadyear = '$acadYear'
+            AND sem = '$sem'"; 
     } 
 
     $results = pg_query($request);
@@ -37,7 +39,7 @@ if (!isset($_SESSION['user_id'])) {
     </head>
     <body>
         <h2>Enroll Request List</h2>
-        <form action = "doAcceptRequest.php" method ="post">
+        <form action = "doRequest.php" method ="post">
             <table width="1500" border="0" cellpadding="1" cellspacing="1">
                 <col width = "80">
                 <col width = "500">
@@ -57,14 +59,14 @@ if (!isset($_SESSION['user_id'])) {
                 </tr>
                 <?php while ($row = pg_fetch_row($results)) { 
                     echo "<tr>"; ?>
-                        <td><input type = 'radio' name = 'requestChoice' value = '<?php $row[0] ?>'></td>
+                <td><input type = 'radio' name = 'requestChoice' value = '<?php echo $row[0] ?>'></td>
                         <?php
-                        echo "<td>$row[2]</td>";
                         echo "<td>$row[3]</td>";
                         echo "<td>$row[4]</td>";
                         echo "<td>$row[5]</td>";
                         echo "<td>$row[6]</td>";
                         echo "<td>$row[7]</td>";
+                        echo "<td>$row[8]</td>";
                     echo "<tr>";
                 } 
                 ?>
