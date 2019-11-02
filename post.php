@@ -21,12 +21,14 @@ if (!isset($_SESSION['user_id'])) {
         $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
             FROM Threads T NATURAL JOIN Students S
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
+            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+            ORDER BY T.posted";
     } elseif ($role == 'Professor') {
         $post = "SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
             FROM Threads T NATURAL JOIN Students S
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
+            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+            ORDER BY T.posted";
     }
 
     $results = pg_query($post);
