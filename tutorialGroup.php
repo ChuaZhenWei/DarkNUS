@@ -19,6 +19,7 @@ if (!isset($_SESSION['user_id'])) { ?>
 <?php } else {
 
 $id = $_SESSION['user_id'];
+$role = $_SESSION['user_role'];
 
 if ($role == 'Student') {
     $tutorial = "SELECT courseName, acadYear, sem, tutID, tutDay, startTime, endTime 
