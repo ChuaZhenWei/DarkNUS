@@ -4,24 +4,33 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
-if (!isset($_SESSION['user_id'])) { ?>
-    <h2>Access Denied. User Not Logged In</h2>
-<?php } else {
-
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-
-if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
-        WHERE studid = '$id'";
+if (!isset($_SESSION['user_id'])) {
+    header('location:login.php');
+} else {
+    $forumName = $_GET['fname'];
+    $courseName = $_GET['cname'];
+    $acadYear = $_GET['ay'];
+    $semester = $_GET['sem'];
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
-}
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
 
+    if ($role == 'Student') {
+        $thread = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+            FROM Threads T
+            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
+            AND T.acadYear = $acadYear AND T.sem = $semester
+            GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
+
+    } elseif ($role == 'Professor') {
+        $thread = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+            FROM Threads T
+            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
+            AND T.acadYear = $acadYear AND T.sem = $semester
+            GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
+    }
+    
+    $results = pg_query($thread);
 ?>
 <html>
     <head>
@@ -34,7 +43,11 @@ if ($role == 'Student') {
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">"Forum Name"</li>                    
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <?php
+                            echo $forumName;
+                        ?>
+                    </li>                    
                 </ol>
                 </nav>
                 <nav class="navbar">
@@ -47,24 +60,19 @@ if ($role == 'Student') {
                 <div class="card-body">
                     <table cellspacing="1000">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <h4><a href="post.php">Thread Title #1</a></h4>
-                                    <p>Name of the thread creator</p>
-                                </td>
-                                <td>
-                                    <p>Number of replies</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4><a href="post.php">Thread Title #2</a></h4>
-                                    <p>Name of the thread creator</p>
-                                </td>
-                                <td>
-                                    <p>Number of replies</p>
-                                </td>
-                            </tr>
+                            <?php
+                            while ($row = pg_fetch_row($results)) {
+                                echo "<tr>";
+                                echo "<td>";
+                                echo "<h4><a href='post.php?fname=$row[3]&amp;cname=$row[0]&amp;ay=$row[1]
+                                        &amp;sem=$row[2]&amp;threadTitle=$row[4]]'>$row[4]</a></h4>";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "<p>Number of replies: $row[5]</p>";
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
