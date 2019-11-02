@@ -14,19 +14,6 @@ if (!isset($_SESSION['user_id'])) { ?>
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
-    
-    if (isset($_POST['submit'])) {
-        $threadTitle = $_POST['thread_title'];
-        $postDetail = $_POST['post_content'];
-
-        $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, userID, posted)
-                    VALUES ('$courseName', $acadYear, $semester, '$forumName', '$threadTitle', 
-                    '$postDetail', '$id', current_timestamp)";
-
-        pg_query($insert);
-    }
-    
-    pg_close();
 ?>
 <html>
     <head>
@@ -43,14 +30,14 @@ if (!isset($_SESSION['user_id'])) { ?>
                         echo $forumName
                     ?></p>
                     <hr>
-                    <?php
-                    echo $acadYear;
-                    echo $semester;
-                    echo "<form method='post' action='thread.php?fname=$forumName&cname=$courseName&ay=$acadYear&sem=$semester'>";
-                    ?>
+                    <form method="post" action="doCreateThread.php">
+                        <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
+                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
+                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
                         <input class="form-control" name="thread_title" type="text" placeholder="Title"><br>
                         <textarea class="form-control" name="post_content" placeholder="Text (required)" rows="5"></textarea><br>
-                        <input type="submit" value="Create thread">
+                        <input type="submit" name="Action" value="Create thread">
                     </form>
 
                     <hr>
