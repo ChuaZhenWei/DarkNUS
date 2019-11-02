@@ -17,14 +17,6 @@ if (!isset($_SESSION['user_id'])){
         
         $postDetail = $_POST['comment'];
         
-        echo $id;
-        echo $forumName;
-        echo $courseName;
-        echo $acadYear;
-        echo $semester;
-        echo $threadTitle;
-        echo $postDetail;
-        
         $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, userID, posted)
                 VALUES ('$courseName', $acadYear, $semester, '$forumName', '$threadTitle', 
                 '$postDetail', '$id', current_timestamp)";
