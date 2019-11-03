@@ -11,12 +11,12 @@ if (!isset($_SESSION['user_id'])) {
     $role = $_SESSION['user_role'];
 
     if ($role == 'Student') {
-        $tutorial = "SELECT courseName, acadYear, sem, tutID, tutDay, startTime, endTime 
+        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, courseName, acadYear, sem, tutID, tutDay, startTime, endTime 
                 FROM Belongs B NATURAL JOIN Tutorial_Groups TG
                 WHERE studID = '$id'";
 
     } else if ($role == 'Professor') {
-        $tutorial = "SELECT T.courseName, T.acadYear, T.sem, TG.tutID, TG.tutDay, TG.startTime, TG.endTime
+        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, T.acadYear, T.sem, TG.tutID, TG.tutDay, TG.startTime, TG.endTime
                 FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
                 T.profID = TG.profID AND T.courseName = TG.courseName
                 AND T.acadYear = TG.acadYear AND T.sem = TG.sem
@@ -48,14 +48,16 @@ if (!isset($_SESSION['user_id'])) {
                 <?php
                 while($row = pg_fetch_row($results)) {
                     echo "<tr>";
-                    echo "<td>$row[0]</td>";
                     echo "<td>$row[1]</td>";
                     echo "<td>$row[2]</td>";
                     echo "<td>$row[3]</td>";
                     echo "<td>$row[4]</td>";
                     echo "<td>$row[5]</td>";
                     echo "<td>$row[6]</td>";
-                    echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php' role='button'>View</a></td>";
+                    echo "<td>$row[7]</td>";
+                    if ($role == 'Professor') {
+                        echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?row=$row[0]' role='button'>View</a></td>";
+                    }
                     echo "<tr>";
                 }
                 ?>
