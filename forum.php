@@ -16,15 +16,17 @@ if (!isset($_SESSION['user_id'])) {
     if ($role == 'Student') {
         $forum = "
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
-            FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
-            AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL AND F.acadYear = $acadYear AND F.sem = $sem
+            FROM Forums F LEFT JOIN Enrolls E ON F.courseName = E.courseName
+            AND F.acadYear = E.acadYear AND F.sem = E.sem 
+            LEFT JOIN Threads T ON F.courseName = T.courseName AND F.forumName = T.forumName
+            AND F.acadYear = T.acadYear and F.sem = T.sem
+            WHERE F.tutID IS NULL AND E.studID = '$id' AND F.acadYear = $acadYear AND F.sem = $sem
             UNION
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Belongs B NATURAL JOIN Forums F
-            INNER JOIN Threads T ON F.courseName = T.courseName
-            AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem";
+            LEFT JOIN Threads T ON F.courseName = T.courseName AND F.forumName = T.forumName
+            AND F.acadYear = T.acadYear and F.sem = T.sem
+            WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem;";
     } elseif ($role == 'Professor') {
         $forum = "
             SELECT F.forumName, F.courseName, F.acadYear, F.sem
