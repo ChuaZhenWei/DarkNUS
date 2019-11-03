@@ -16,18 +16,22 @@ if (!isset($_SESSION['user_id'])) {
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
-
-    if ($role == 'Student') {
-        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T
-            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
-    } elseif ($role == 'Professor') {
-        $post = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails
-            FROM Threads T
-            WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
-            AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'";
-    }
+    
+    $post = "
+        SELECT *
+        FROM
+        (
+        SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        FROM Threads T INNER JOIN Students S ON T.userID = S.studID 
+        WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
+        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        UNION
+        SELECT P.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        FROM Threads T INNER JOIN Professors P ON T.userID = P.profID
+        WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
+        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        ) AS A
+        ORDER BY A.posted";
 
     $results = pg_query($post);
 ?>
@@ -56,23 +60,39 @@ if (!isset($_SESSION['user_id'])) {
                 </ol>
                 </nav>
                 <div class="card-body">                   
-                    <h4><a href="#">Thread Title</a></h4>
-                    <p>Posted by "Name of poster"</p>
-                    <hr>
-                    <p>Dear Prof, for the past few lectures...</p>
-                    <br>
-                    <form>
+                            <h4><a href="#">
+                        <?php
+                        echo $threadTitle;
+                        echo "</a></h4>";
+                        $threadStarter = pg_fetch_result($results, 0, 0);
+                        $threadDetails = pg_fetch_result($results, 0, 6);
+                        echo "<p>Posted by $threadStarter</p>";
+                        echo "<hr>";
+                        echo "<p>$threadDetails</p>";
+                        echo "<br>";
+                        ?>
+                    <form method="post" action="doPost.php  ">
+                        <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
+                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
+                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
+                        <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
                         <div class="form-group">
                             <label for="comment">Comment:</label>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                            <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
                         </div>
-                        <input type="submit" value="Submit">
+                        <input type="submit" name="Action" value="Submit">
                     </form>
                     <hr>
                     <br>
-                    <p>Reply by "Name of poster"</p>
-                    <p>There is no mistake in the updated lecture notes...</p>
-                    <hr>
+                    <?php
+                    $row = pg_fetch_row($results);
+                    while ($row = pg_fetch_row($results)) {
+                        echo "<p>Reply by $row[0]</p>";
+                        echo "<p>$row[6]</p>";
+                        echo "<hr>";
+                    }
+                    ?>
                 </div>
             </div>
     </body>
