@@ -15,21 +15,21 @@ if (!isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
     $acadYear = $_SESSION['acadYear'];
-    $semester = $_SESSION['sem'];
+    $sem = $_SESSION['sem'];
     
     $post = "
         SELECT *
         FROM
         (
-        SELECT S.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted
+        SELECT S.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted, T.userid
         FROM Threads T INNER JOIN Students S ON T.userID = S.studID 
         WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
-        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        AND T.acadYear = $acadYear AND T.sem = $sem AND T.threadTitle = '$threadTitle'
         UNION
-        SELECT P.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted
+        SELECT P.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted, T.userid
         FROM Threads T INNER JOIN Professors P ON T.userID = P.profID
         WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
-        AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
+        AND T.acadYear = $acadYear AND T.sem = $sem AND T.threadTitle = '$threadTitle'
         ) AS A
         ORDER BY A.posted";
 
@@ -86,7 +86,11 @@ if (!isset($_SESSION['user_id'])) {
                     <?php
                     $row = pg_fetch_row($results);
                     while ($row = pg_fetch_row($results)) {
-                        echo "<p>Reply by $row[0]</p>";
+                        echo "<p>Reply by $row[0]";
+                        if ($row[6] == $id || $role == 'Professor') {
+                                echo "<a href='doPost.php?coursename=$row[1]&amp;forumname=$row[2]&amp;tt=$row[3]&amp;td=$row[4]&amp;lForum=$forumName&amp;lCourse=$courseName&amp;lTitle=$threadTitle'><input type = 'button' value = 'Delete' style = 'float : right'></a>";
+                        }
+                        echo "</p>";
                         echo "<p>$row[4]</p>";
                         echo "<hr>";
                     }

@@ -6,25 +6,44 @@ include ('dbFunction.php');
 if (!isset($_SESSION['user_id'])){
     header('location:index.php');
 } else {
+    $id = $_SESSION['user_id'];
+    $acadYear = $_SESSION['acadYear'];
+    $sem = $_SESSION['sem'];
+    
     if (isset($_POST['Action']) && isset($_POST['comment'])) {
-        $id = $_SESSION['user_id'];
-        
         $forumName = $_POST['forumName'];
         $courseName = $_POST['courseName'];
-        $acadYear = $_SESSION['acadYear'];
-        $semester = $_SESSION['sem'];
-        $threadTitle = $_POST['threadTitle'];
-        
+        $threadTitle = $_POST['threadTitle'];      
         $postDetail = $_POST['comment'];
         
         $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, userID, posted)
-                VALUES ('$courseName', $acadYear, $semester, '$forumName', '$threadTitle', 
+                VALUES ('$courseName', $acadYear, $sem, '$forumName', '$threadTitle', 
                 '$postDetail', '$id', current_timestamp)";
         
         
         pg_query($insert);
         
         header("location:post.php?fname=$forumName&cname=$courseName&threadTitle=$threadTitle");
+    } else if (isset($_GET['coursename'])) {
+        $courseName = $_GET['coursename'];
+        $forumName = $_GET['forumname'];
+        $threadTitle = $_GET['tt'];
+        $postDetails = $_GET['td'];
+        $lForum = $_GET['lForum'];
+        $lCourse = $_GET['lCourse'];
+        $lTitle = $_GET['lTitle'];    
+        
+        $delete = "DELETE FROM THREADS
+            WHERE coursename = '$courseName'
+            AND acadYear = '$acadYear'
+            AND sem = '$sem'
+            AND forumname = '$forumName'
+            AND threadtitle = '$threadTitle'
+            AND postdetails = '$postDetails'";
+        
+        pg_query($delete);
+        
+        header("location:post.php?fname=$lForum&cname=$lCourse&threadTitle=$lTitle");
     }
 }
 pg_close();
