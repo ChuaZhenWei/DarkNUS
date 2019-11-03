@@ -9,32 +9,32 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
-    $theRow = $_GET['row'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
+    $theRow = $_GET['theRow'];
 
     if ($role == 'Student') {
         header('location:tutorialGroup.php');
     }
     
-    $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, T.acadYear, T.sem, TG.tutID, 
+    $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, TG.tutID, 
         TG.tutDay, TG.startTime, TG.endTime, S.name, S.email
         FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
         T.profID = TG.profID AND T.courseName = TG.courseName
         AND T.acadYear = TG.acadYear AND T.sem = TG.sem
         INNER JOIN Teaching_Assistants TA ON T.courseName = TA.courseName AND T.acadYear = TA.acadYear 
         AND T.sem = TA.sem AND TG.tutID = TA.tutID NATURAL JOIN Students S
-        WHERE T.profID = '$id'";
+        WHERE T.profID = '$id' AND T.acadYear = $acadYear AND T.sem = $semester";
     
     $result = pg_query($tutorial);
     $tutorial_details = pg_fetch_row($result, $theRow-1);
     $courseName = $tutorial_details[1];
-    $acadYear = $tutorial_details[2];
-    $sem = $tutorial_details[3];
-    $tutID = $tutorial_details[4];
+    $tutID = $tutorial_details[2];
     
     $students = "SELECT studID, name, faculty, email
         FROM Belongs B NATURAL JOIN Students S
         WHERE courseName = '$courseName' AND acadYear = $acadYear
-        AND sem = $sem AND tutID = $tutID";
+        AND sem = $semester AND tutID = $tutID";
     
     $results = pg_query($students);
     
@@ -61,7 +61,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                         <div class="col">
                             <?php
-                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID&amp;count=$noOfStudents&amp;row=$theRow'
+                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;tutid=$tutID&amp;count=$noOfStudents&amp;row=$theRow'
                                     role='button' style='float: right;'>Add Student</a>";
                             ?>
                         </div>
