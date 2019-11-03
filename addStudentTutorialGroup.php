@@ -8,15 +8,19 @@ if (!isset($_SESSION['user_id'])) {
     header('location:login.php');
 } else {
 
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-
-if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
-        WHERE studid = '$id'";
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
     
-} elseif ($role == 'Professor') {
+    if ($role == 'Student') {
+        header('location:tutorialGroup.php');
+    }
+    
+    $courseName = $_GET['cname'];
+    $acadYear = $_GET['ay'];
+    $semester = $_GET['sem'];
+    $tutID = $_GET['tutid'];
+    $count = $_GET['count'];
+
     $query = "SELECT *
         FROM teaches
         WHERE profid = '$id'";
@@ -34,12 +38,18 @@ if ($role == 'Student') {
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h4>Add student to "Tutorial Group Name"</h4>
+                            <h4>Add student to Tutorial Group
+                            <?php
+                            echo $tutID;
+                            ?></h4>
                         </div>                       
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="font-weight-light">"Number of students:"</p>
+                            <p class="font-weight-light">Number of students:
+                            <?php
+                            echo "$count</p>";
+                            ?>
                         </div>
                     </div>
                 </div>

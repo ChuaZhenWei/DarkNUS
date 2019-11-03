@@ -11,6 +11,10 @@ if (!isset($_SESSION['user_id'])) {
     $role = $_SESSION['user_role'];
     $row = $_GET['row'];
 
+    if ($role == 'Student') {
+        header('location:tutorialGroup.php');
+    }
+    
     $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, T.acadYear, T.sem, TG.tutID, 
         TG.tutDay, TG.startTime, TG.endTime, S.name, S.email
         FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
@@ -38,7 +42,8 @@ if (!isset($_SESSION['user_id'])) {
         FROM ($students) AS students";
     
     $count = pg_query($currentCount);
-?>
+    $noOfStudents = pg_fetch_result($count, 0);
+?>  
 <html>
     <head>
         <meta charset="UTF-8">
@@ -56,7 +61,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                         <div class="col">
                             <?php
-                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID'
+                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID&amp;count=$noOfStudents'
                                     role='button' style='float: right;'>Add Student</a>";
                             ?>
                         </div>
@@ -65,7 +70,6 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="col">
                             <p class="font-weight-light">
                             <?php
-                            $noOfStudents = pg_fetch_result($count, 0);
                             echo "Number of students: $noOfStudents";
                             ?></p>
                         </div>
