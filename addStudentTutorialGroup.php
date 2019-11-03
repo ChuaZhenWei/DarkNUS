@@ -20,6 +20,7 @@ if (!isset($_SESSION['user_id'])) {
     $semester = $_GET['sem'];
     $tutID = $_GET['tutid'];
     $count = $_GET['count'];
+    $theRow = $_GET['row'];
 
     $query = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, studID, name, faculty, email
         FROM (
@@ -60,7 +61,8 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                 </div>
-                <form action="viewTutorialGroup.php" method="get">
+                <form action="viewTutorialGroup.php?" method="get">
+                <input type="hidden" value="<?php echo $theRow ?>" name="row">
                 <div class="card-body"> 
                     <table width="700" border="0" cellpadding="1" cellspacing="1">
                         <tr>

@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
-    $row = $_GET['row'];
+    $theRow = $_GET['row'];
 
     if ($role == 'Student') {
         header('location:tutorialGroup.php');
@@ -25,7 +25,7 @@ if (!isset($_SESSION['user_id'])) {
         WHERE T.profID = '$id'";
     
     $result = pg_query($tutorial);
-    $tutorial_details = pg_fetch_row($result, $row-1);
+    $tutorial_details = pg_fetch_row($result, $theRow-1);
     $courseName = $tutorial_details[1];
     $acadYear = $tutorial_details[2];
     $sem = $tutorial_details[3];
@@ -61,7 +61,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                         <div class="col">
                             <?php
-                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID&amp;count=$noOfStudents'
+                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID&amp;count=$noOfStudents&amp;row=$theRow'
                                     role='button' style='float: right;'>Add Student</a>";
                             ?>
                         </div>
