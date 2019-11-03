@@ -29,15 +29,10 @@ if (!isset($_SESSION['user_id'])) {
             WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem;";
     } elseif ($role == 'Professor') {
         $forum = "
-            SELECT F.forumName, F.courseName, F.acadYear, F.sem
+            SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
             AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL AND F.acadYear = $acadYear AND F.sem = $sem
-            UNION
-            SELECT F.forumName, F.courseName, F.acadYear, F.sem
-            FROM Forums F INNER JOIN Threads T ON F.courseName = T.courseName
-            AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.profid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem";
+            WHERE F.profID = '$id' AND F.acadYear = $acadYear AND F.sem = $sem;";
     }
 
     $result = pg_query($forum);
