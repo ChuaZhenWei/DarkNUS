@@ -44,9 +44,21 @@ if (!isset($_SESSION['user_id'])) {
                             <?php
                             while ($row = pg_fetch_row($results)) {
                                 echo "<tr>";
-                                echo "<td>";
-                                echo "<h4>$row[0]</h4>";
-                                echo "</td>";
+                                    echo "<th>";
+                                    echo "Module Title";
+                                    echo "</th>";
+                                    echo "<th>";
+                                    echo "Faculty";
+                                    echo "</th>";
+                                echo "</tr>";
+                                
+                                echo "<tr>";
+                                    echo "<td>";
+                                    echo "$row[0]";
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo "$row[2]";
+                                    echo "</td>";
                                 echo "</tr>";
                             }
                             ?>
