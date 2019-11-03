@@ -13,11 +13,13 @@ if (!isset($_SESSION['user_id'])) {
     $sem = $_SESSION['sem'];
 
     if ($role == 'Professor') {
-        $request = "SELECT *
-            FROM request_list
-            WHERE profID = '$id'
-            AND acadyear = '$acadYear'
-            AND sem = '$sem'"; 
+        $request = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS No, *
+                FROM (SELECT R.studid, R.profid, R.coursename, R.acadyear, R.sem, S.name, S.email, S.faculty
+                FROM REQUESTS R
+                NATURAL JOIN STUDENTS S
+                WHERE profid = '$id'
+                AND acadyear = '$acadYear'
+                AND sem = '$sem') AS foo"; 
     } 
 
     $results = pg_query($request);

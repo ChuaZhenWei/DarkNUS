@@ -8,32 +8,36 @@ if (!isset($_SESSION['user_id'])){
 } else {
     if (isset($_POST['requestChoice'])){
         $id = $_SESSION['user_id'];
+        $acadYear = $_SESSION['acadYear'];
+        $sem = $_SESSION['sem'];
         $requestChoice = $_POST['requestChoice'];
         $decision = $_POST['Action'];
         
-        $query = "SELECT *
-            FROM request_list
-            WHERE profid = '$id'
-            AND no = '$requestChoice'";
+        $query = "SELECT R.studid, R.profid, R.coursename, R.acadyear, R.sem, S.name, S.email, S.faculty
+                FROM REQUESTS R
+                NATURAL JOIN STUDENTS S
+                WHERE profid = '$id'
+                AND acadyear = '$acadYear'
+                AND sem = '$sem'";
         
         $result = pg_query($query);
         
         if (pg_num_rows($result) == 1) {
-            $row=pg_fetch_array($result);
+            $row= pg_fetch_row($result, $requestChoice-1);
             
             if ($decision == 'Accept') {
                 $insert = "INSERT INTO ENROLLS (studid, coursename, acadyear, sem)
-                    VALUES ('$row[1]', '$row[3]', '$row[4]', '$row[5]')";
+                    VALUES ('$row[0]', '$row[2]', '$row[3]', '$row[4]')";
               
                 pg_query($insert);
             }
             
             $delete = "DELETE FROM REQUESTS
-                    WHERE studid = '$row[1]'
-                    AND profid = '$row[2]'
-                    AND coursename = '$row[3]'
-                    AND acadyear = '$row[4]'
-                    AND sem = '$row[5]'";
+                    WHERE studid = '$row[0]'
+                    AND profid = '$row[1]'
+                    AND coursename = '$row[2]'
+                    AND acadyear = '$row[3]'
+                    AND sem = '$row[4]'";
             
             pg_query($delete);
             
