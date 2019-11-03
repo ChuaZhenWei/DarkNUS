@@ -17,8 +17,8 @@ if (!isset($_SESSION['user_id'])) {
             $query = "SELECT * FROM Courses WHERE lower(courseName) LIKE '%$word%'";
             $course = $query;
         }       
+        $results = pg_query($course);
     }
-    $results = pg_query($course);
 ?>
 <html>
     <head>
