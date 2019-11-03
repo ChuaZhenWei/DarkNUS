@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id'])){
         
         $result = pg_query($query);
         
-        if (pg_num_rows($result) == 1) {
+        if (pg_num_rows($result) > 0) {
             $row= pg_fetch_row($result, $requestChoice-1);
             
             if ($decision == 'Accept') {
@@ -43,9 +43,8 @@ if (!isset($_SESSION['user_id'])){
             
             header('location:requests.php');
         }
-    } else {
-        header('location:requests.php');
     }
+    header('location:requests.php');
 }
 pg_close();
 ?>

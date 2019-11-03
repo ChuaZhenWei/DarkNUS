@@ -43,7 +43,7 @@ $results = pg_query($course)
         <title></title>
     </head>
     <body>
-        <h2>Add Courses</h2>
+        <h2>Request Courses</h2>
         <form action = "doRequestCourse.php" method ="post">
             <table width="1500" border="0" cellpadding="1" cellspacing="1">
                 <col width = "80">
@@ -70,9 +70,9 @@ $results = pg_query($course)
                     echo "<td> $row[1]</td>";
                     echo "<td> $row[2]</td>";
                     echo "<td> $row[3]</td>";
-                    echo "<td> $row[4]</td>";
                     echo "<td> $row[5]</td>";
                     echo "<td> $row[6]</td>";
+                    echo "<td> $row[7]</td>";
                     echo "<tr>";
                 }
                 ?>
