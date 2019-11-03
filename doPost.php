@@ -11,8 +11,8 @@ if (!isset($_SESSION['user_id'])){
         
         $forumName = $_POST['forumName'];
         $courseName = $_POST['courseName'];
-        $acadYear = $_POST['acadYear'];
-        $semester = $_POST['semester'];
+        $acadYear = $_SESSION['acadYear'];
+        $semester = $_SESSION['sem'];
         $threadTitle = $_POST['threadTitle'];
         
         $postDetail = $_POST['comment'];
@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])){
         
         pg_query($insert);
         
-        header("location:post.php?fname=$forumName&cname=$courseName&ay=$acadYear&sem=$semester&threadTitle=$threadTitle");
+        header("location:post.php?fname=$forumName&cname=$courseName&threadTitle=$threadTitle");
     }
 }
 pg_close();

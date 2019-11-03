@@ -17,15 +17,6 @@ if (!isset($_SESSION['user_id'])){
         $threadTitle = $_POST['thread_title'];
         $postDetail = $_POST['post_content'];
         
-        echo $id;
-        echo $forumName;
-        echo $courseName;
-        echo $acadYear;
-        echo $semester;
-        
-        echo $threadTitle;
-        echo $postDetail;
-        
         $insert = "INSERT INTO Threads (courseName, acadYear, sem, forumName, threadTitle, postDetails, userID, posted)
                 VALUES ('$courseName', $acadYear, $semester, '$forumName', '$threadTitle', 
                 '$postDetail', '$id', current_timestamp)";
@@ -33,7 +24,7 @@ if (!isset($_SESSION['user_id'])){
         
         pg_query($insert);
         
-        header("location:thread.php?fname=$forumName&cname=$courseName&ay=$acadYear&sem=$semester");
+        header("location:thread.php?fname=$forumName&cname=$courseName");
     }
 }
 pg_close();

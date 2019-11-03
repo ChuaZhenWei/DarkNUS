@@ -16,14 +16,14 @@ if (!isset($_SESSION['user_id'])) {
     $semester = $_SESSION['sem'];
 
     if ($role == 'Student') {
-        $thread = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+        $thread = "SELECT T.courseName, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
             FROM Threads T
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
             AND T.acadYear = $acadYear AND T.sem = $semester
             GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
 
     } elseif ($role == 'Professor') {
-        $thread = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+        $thread = "SELECT T.courseName, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
             FROM Threads T
             WHERE T.courseName = '$courseName' AND T.forumName = '$forumName' 
             AND T.acadYear = $acadYear AND T.sem = $semester
@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
         if(isset($_POST['threadTitle']) && !empty($_POST['threadTitle']))
         {  
             $word = $_POST['threadTitle'];
-            $query= "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
+            $query= "SELECT T.courseName, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
                 FROM Threads T WHERE lower(threadTitle) LIKE '%$word%' AND forumName = '$forumName' AND courseName = '$courseName'
                 AND acadYear = $acadYear AND sem = $semester
                 GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
@@ -86,10 +86,10 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = pg_fetch_row($results)) {
                                 echo "<tr>";
                                 echo "<td>";
-                                echo "<h4><a href='post.php?fname=$row[3]&amp;cname=$row[0]&amp;threadTitle=$row[4]'>$row[4]</a></h4>";
+                                echo "<h4><a href='post.php?fname=$row[1]&amp;cname=$row[0]&amp;threadTitle=$row[2]'>$row[2]</a></h4>";
                                 echo "</td>";
                                 echo "<td>";
-                                echo "<p>Number of replies: $row[5]</p>";
+                                echo "<p>Number of replies: $row[3]</p>";
                                 echo "</td>";
                                 echo "</tr>";
                             }

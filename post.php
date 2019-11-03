@@ -21,12 +21,12 @@ if (!isset($_SESSION['user_id'])) {
         SELECT *
         FROM
         (
-        SELECT S.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        SELECT S.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted
         FROM Threads T INNER JOIN Students S ON T.userID = S.studID 
         WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
         AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
         UNION
-        SELECT P.name, T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, T.postDetails, T.posted
+        SELECT P.name, T.courseName, T.forumName, T.threadTitle, T.postDetails, T.posted
         FROM Threads T INNER JOIN Professors P ON T.userID = P.profID
         WHERE T.courseName = '$courseName' AND T.forumName = '$forumName'
         AND T.acadYear = $acadYear AND T.sem = $semester AND T.threadTitle = '$threadTitle'
@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_id'])) {
                     <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
                             <li class="breadcrumb-item">
                         <?php
-                        echo "<a href='thread.php?fname=$forumName&amp;cname=$courseName&amp;ay=$acadYear&amp;sem=$semester'>";
+                        echo "<a href='thread.php?fname=$forumName&amp;cname=$courseName'>";
                         echo $forumName;
                         ?>
                         </a></li>
@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
                         echo $threadTitle;
                         echo "</a></h4>";
                         $threadStarter = pg_fetch_result($results, 0, 0);
-                        $threadDetails = pg_fetch_result($results, 0, 6);
+                        $threadDetails = pg_fetch_result($results, 0, 4);
                         echo "<p>Posted by $threadStarter</p>";
                         echo "<hr>";
                         echo "<p>$threadDetails</p>";
@@ -74,8 +74,6 @@ if (!isset($_SESSION['user_id'])) {
                     <form method="post" action="doPost.php  ">
                         <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
-                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
                         <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
                         <div class="form-group">
                             <label for="comment">Comment:</label>
@@ -89,7 +87,7 @@ if (!isset($_SESSION['user_id'])) {
                     $row = pg_fetch_row($results);
                     while ($row = pg_fetch_row($results)) {
                         echo "<p>Reply by $row[0]</p>";
-                        echo "<p>$row[6]</p>";
+                        echo "<p>$row[4]</p>";
                         echo "<hr>";
                     }
                     ?>
