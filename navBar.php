@@ -38,7 +38,7 @@
                             <a class="nav-link" href="tutorialGroup.php">Tutorial Group</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="moduleSearch.php">Module Search</a>
+                            <a class="nav-link" href="courseSearch.php">Course Search</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -74,7 +74,7 @@
                         <a class="nav-link" href="tutorialGroup.php">Tutorial Group</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="moduleSearch.php">Module Search</a>
+                        <a class="nav-link" href="courseSearch.php">Course Search</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

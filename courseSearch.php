@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = pg_fetch_row($results)) {
                                 echo "<tr>";
                                     echo "<th>";
-                                    echo "Module Title";
+                                    echo "Course Title";
                                     echo "</th>";
                                     echo "<th>";
                                     echo "Faculty";
