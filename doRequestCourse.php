@@ -43,6 +43,8 @@ if (!isset($_SESSION['user_id'])){
             
             header('location:requestCourse.php');
         }
+    } else {
+        header('location:requestCourse.php');
     }
 }
 pg_close();

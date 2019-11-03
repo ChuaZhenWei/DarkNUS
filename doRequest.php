@@ -43,6 +43,8 @@ if (!isset($_SESSION['user_id'])){
             
             header('location:requests.php');
         }
+    } else {
+        header('location:requests.php');
     }
 }
 pg_close();

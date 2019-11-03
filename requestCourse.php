@@ -79,7 +79,7 @@ $results = pg_query($course)
             </table>
             <br />
             <br />
-            <input type = "Submit" name = "Action" value = "add">
+            <input type = "Submit" name = "Action" value = "Add">
         </form>
     </body>
 </html> 
