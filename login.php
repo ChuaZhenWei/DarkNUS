@@ -31,6 +31,12 @@ if (!isset($_SESSION['user_id'])){
                                 <div class="form-group">
                                     <label style="color: mintcream;">Password</label>
                                     <input type="password" class="form-control" placeholder="Password" required="required" name="pass">
+                                    <?php
+                                    if (isset($_SESSION['error'])) {
+                                        echo "<p style='color: red;'>Invalid Username or Password</p>";
+                                        unset($_SESSION['error']);
+                                    }
+                                    ?>
                                 </div>
                                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
                             </form>

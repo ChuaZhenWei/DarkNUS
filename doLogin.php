@@ -54,15 +54,14 @@ if (!isset($_SESSION['user_id'])){
                 $_SESSION['acadYear'] = $acadYear;
                 $_SESSION['sem'] = $sem;
                 header('location:index.php');
-            } else {
-                echo "Incorrect password </br>
-                    <a href = 'login.php'>Back</a>";
             }
+        } 
+        
+        if (!isset($_SESSION['user_id'])) {
+            $error = "Invalid";
+            $_SESSION['error'] = $error; 
         }
-        else{
-            echo "Incorrect username </br>
-                <a href = 'login.php'>Back</a>";
-        }
+        header('location:login.php');
     }
 }
 else{
