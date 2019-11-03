@@ -9,24 +9,26 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
 
     if ($role == 'Student') {
-        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, B.courseName, B.acadYear, 
-            B.sem, B.tutID, TG.tutDay, TG.startTime, TG.endTime, S.name, S.email 
+        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, B.courseName, 
+            B.tutID, TG.tutDay, TG.startTime, TG.endTime, S.name, S.email 
             FROM Belongs B NATURAL JOIN Tutorial_Groups TG INNER JOIN Teaching_Assistants TA 
             ON TG.courseName = TA.courseName AND TG.acadYear = TA.acadYear 
             AND TG.sem = TA.sem AND TG.tutID = TA.tutID INNER JOIN Students S ON TA.studID = S.studID
-            WHERE B.studID =  '$id'";
+            WHERE B.studID =  '$id' AND B.acadYear = $acadYear AND B.sem = $semester";
 
     } else if ($role == 'Professor') {
-        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, T.acadYear, T.sem, TG.tutID, 
+        $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, TG.tutID, 
             TG.tutDay, TG.startTime, TG.endTime, S.name, S.email
             FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
             T.profID = TG.profID AND T.courseName = TG.courseName
             AND T.acadYear = TG.acadYear AND T.sem = TG.sem
             INNER JOIN Teaching_Assistants TA ON T.courseName = TA.courseName AND T.acadYear = TA.acadYear 
             AND T.sem = TA.sem AND TG.tutID = TA.tutID NATURAL JOIN Students S
-            WHERE T.profID = '$id'"; 
+            WHERE T.profID = '$id' AND T.acadYear = $acadYear AND T.sem = $semester"; 
     } 
 
     $results = pg_query($tutorial);
@@ -43,8 +45,6 @@ if (!isset($_SESSION['user_id'])) {
             <table width="700" border="0" cellpadding="1" cellspacing="1">
                 <tr>
                     <th>Course Name</th>
-                    <th>Academic Year</th>
-                    <th>Semester</th>
                     <th>Tutorial ID</th>
                     <th>Tutorial Day</th>
                     <th>Tutorial Start Time</th>
@@ -63,10 +63,8 @@ if (!isset($_SESSION['user_id'])) {
                     echo "<td>$row[5]</td>";
                     echo "<td>$row[6]</td>";
                     echo "<td>$row[7]</td>";
-                    echo "<td>$row[8]</td>";
-                    echo "<td>$row[9]</td>";
                     if ($role == 'Professor') {
-                        echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?row=$row[0]' role='button'>View</a></td>";
+                        echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?theRow=$row[0]' role='button'>View</a></td>";
                     }
                     echo "<tr>";
                 }

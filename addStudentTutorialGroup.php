@@ -10,19 +10,19 @@ if (!isset($_SESSION['user_id'])) {
 
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
     
     if ($role == 'Student') {
         header('location:tutorialGroup.php');
     }
     
     $courseName = $_GET['cname'];
-    $acadYear = $_GET['ay'];
-    $semester = $_GET['sem'];
     $tutID = $_GET['tutid'];
     $count = $_GET['count'];
     $theRow = $_GET['row'];
 
-    $query = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, studID, name, faculty, email
+    $query = "SELECT studID, name, faculty, email, courseName
         FROM (
             SELECT studID, courseName, acadYear, sem
             FROM Enrolls E
@@ -61,8 +61,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                 </div>
-                <form action="viewTutorialGroup.php?" method="get">
-                <input type="hidden" value="<?php echo $theRow ?>" name="row">
+                <form action="doAddStudentTutorialGroup.php" method="post">
                 <div class="card-body"> 
                     <table width="700" border="0" cellpadding="1" cellspacing="1">
                         <tr>
@@ -75,16 +74,21 @@ if (!isset($_SESSION['user_id'])) {
                         <?php
                         while ($row = pg_fetch_row($result)) {
                             echo "<tr>";
+                            echo "<td><input type='radio' name='selectedStudent' value='$row[0]''></td>";
+                            echo "<td>$row[0]</td>";
                             echo "<td>$row[1]</td>";
                             echo "<td>$row[2]</td>";
                             echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
                             echo "</tr>";
+                            echo "<input type='hidden' value=$theRow name='theRow'>";
+                            echo "<input type='hidden' value=$row[0] name='studID'>";
+                            echo "<input type='hidden' value='$row[4]' name='courseName'>";
+                            echo "<input type='hidden' value=$tutID name='tutID'>";
                         }
                         ?>
                     </table>
                     <hr>
-                    <p><input type="submit" value="Add Student"></p>
+                    <p><input type="submit" name="Action" value="Add Student"></p>
                 </div>
                 </form>
             </div>
