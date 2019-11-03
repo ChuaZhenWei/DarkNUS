@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])){
             if ($decision == 'Accept') {
                 $insert = "INSERT INTO ENROLLS (studid, coursename, acadyear, sem)
                     VALUES ('$row[1]', '$row[3]', '$row[4]', '$row[5]')";
-                
+              
                 pg_query($insert);
             }
             
