@@ -21,11 +21,18 @@ if (!isset($_SESSION['user_id'])) {
     $tutID = $_GET['tutid'];
     $count = $_GET['count'];
 
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
-}
-
+    $query = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, studID, name, faculty, email
+        FROM (
+            SELECT studID, courseName, acadYear, sem
+            FROM Enrolls E
+            EXCEPT
+            SELECT studID, courseName, acadYear, sem
+            FROM Belongs B
+        ) AS A NATURAL JOIN Students S
+        WHERE courseName = '$courseName' AND acadYear = $acadYear
+        AND sem = $semester";
+    
+    $result = pg_query($query);
 ?>
 <html>
     <head>
@@ -63,13 +70,16 @@ if (!isset($_SESSION['user_id'])) {
                             <th>Faculty</th>
                             <th>Email</th>
                         </tr>
-                        <tr>
-                            <td><input type="radio" value=""></td>
-                            <td>S12345678</td>
-                            <td>Ryan</td>
-                            <td>Engineering</td>
-                            <td>ryan@u.nus.edu</td>
-                        <tr>
+                        <?php
+                        while ($row = pg_fetch_row($result)) {
+                            echo "<tr>";
+                            echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "<td>$row[4]</td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </table>
                     <hr>
                     <p><input type="submit" value="Add Student"></p>
