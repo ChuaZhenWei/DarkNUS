@@ -51,6 +51,18 @@ if (!isset($_SESSION['user_id'])) {
                         <li class="breadcrumb-item active" aria-current="page">Forum</li>
                     </ol>
                 </nav>
+                <?php
+                if ($role == 'Professor')
+                {
+                    echo "<nav class='navbar'>";
+                        echo "<ul class='navbar-nav'>";
+                            echo "<li class='nav-item'>";
+                                echo "<a class='btn btn-primary' href='createForum.php' role='button'>Create Forum</a>";
+                            echo "</li>";
+                        echo "</ul>";
+                    echo "</nav>";
+                }
+                ?>
                 <div class="card-body">
                     <table cellspacing="1000">
                         <tbody>
