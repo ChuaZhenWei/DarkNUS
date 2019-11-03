@@ -44,7 +44,7 @@ $results = pg_query($course)
     </head>
     <body>
         <h2>Add Courses</h2>
-        <form action = "doAddCourse.php" method ="post">
+        <form action = "doRequestCourse.php" method ="post">
             <table width="1500" border="0" cellpadding="1" cellspacing="1">
                 <col width = "80">
                 <col width = "500">
