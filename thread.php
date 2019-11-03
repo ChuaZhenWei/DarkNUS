@@ -9,11 +9,11 @@ if (!isset($_SESSION['user_id'])) {
 } else {
     $forumName = $_GET['fname'];
     $courseName = $_GET['cname'];
-    $acadYear = $_GET['ay'];
-    $semester = $_GET['sem'];
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
 
     if ($role == 'Student') {
         $thread = "SELECT T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user_id'])) {
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <?php
-                            echo "<a class='btn btn-primary' href='createThread.php?fname=$forumName&amp;cname=$courseName&amp;ay=$acadYear&amp;sem=$semester'
+                            echo "<a class='btn btn-primary' href='createThread.php?fname=$forumName&amp;cname=$courseName'
                                 role='button'>Create New Thread</a>";
                             if ($role == 'Professor') {
                                 echo "<a class='btn btn-primary' href='addForumTutorialGroup.php role='button'>Add Tutorial Group</a>";
@@ -86,8 +86,7 @@ if (!isset($_SESSION['user_id'])) {
                             while ($row = pg_fetch_row($results)) {
                                 echo "<tr>";
                                 echo "<td>";
-                                echo "<h4><a href='post.php?fname=$row[3]&amp;cname=$row[0]&amp;ay=$row[1]
-                                        &amp;sem=$row[2]&amp;threadTitle=$row[4]'>$row[4]</a></h4>";
+                                echo "<h4><a href='post.php?fname=$row[3]&amp;cname=$row[0]&amp;threadTitle=$row[4]'>$row[4]</a></h4>";
                                 echo "</td>";
                                 echo "<td>";
                                 echo "<p>Number of replies: $row[5]</p>";

@@ -9,11 +9,11 @@ if (!isset($_SESSION['user_id'])) { ?>
 <?php } else {
     $forumName = $_GET['fname'];
     $courseName = $_GET['cname'];
-    $acadYear = $_GET['ay'];
-    $semester = $_GET['sem'];
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
 ?>
 <html>
     <head>
@@ -33,8 +33,6 @@ if (!isset($_SESSION['user_id'])) { ?>
                     <form method="post" action="doCreateThread.php">
                         <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                        <input type="hidden" value="<?php echo $acadYear ?>" name="acadYear">
-                        <input type="hidden" value="<?php echo $semester ?>" name="semester">
                         <input class="form-control" name="thread_title" type="text" placeholder="Title"><br>
                         <textarea class="form-control" name="post_content" placeholder="Text (required)" rows="5"></textarea><br>
                         <input type="submit" name="Action" value="Create thread">

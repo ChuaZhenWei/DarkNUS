@@ -11,8 +11,8 @@ if (!isset($_SESSION['user_id'])){
         
         $forumName = $_POST['forumName'];
         $courseName = $_POST['courseName'];
-        $acadYear = $_POST['acadYear'];
-        $semester = $_POST['semester'];
+        $acadYear = $_SESSION['acadYear'];
+        $semester = $_SESSION['sem'];
         
         $threadTitle = $_POST['thread_title'];
         $postDetail = $_POST['post_content'];

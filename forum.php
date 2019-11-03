@@ -10,30 +10,32 @@ if (!isset($_SESSION['user_id'])) {
 
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $sem = $_SESSION['sem']; 
 
     if ($role == 'Student') {
         $forum = "
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
             AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL
+            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL AND F.acadYear = $acadYear AND F.sem = $sem
             UNION
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Belongs B NATURAL JOIN Forums F
             INNER JOIN Threads T ON F.courseName = T.courseName
             AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE B.studid = '$id'";
+            WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem";
     } elseif ($role == 'Professor') {
         $forum = "
             SELECT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Forums F LEFT JOIN Threads T ON F.courseName = T.courseName
             AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL
+            WHERE F.tutID IS NULL AND T.threadTitle IS NOT NULL AND F.acadYear = $acadYear AND F.sem = $sem
             UNION
             SELECT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Forums F INNER JOIN Threads T ON F.courseName = T.courseName
             AND F.acadYear = T.acadYear and F.sem = T.sem AND F.forumName = T.forumName
-            WHERE F.profid = '$id'";
+            WHERE F.profid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem";
     }
 
     $result = pg_query($forum);
@@ -84,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
                                 $threadCount = pg_fetch_result($query, 0, 0);
                                 echo "<tr>";
                                 echo "<td>";
-                                echo "<h4><a href='thread.php?fname=$row[0]&amp;cname=$row[1]&amp;ay=$row[2]&amp;sem=$row[3]'>$row[0]</a></h4>";
+                                echo "<h4><a href='thread.php?fname=$row[0]&amp;cname=$row[1]'>$row[0]</a></h4>";
                                 echo "<p>$row[1]</p>";
                                 echo "<p>Academic Year $row[2], ";
                                 echo "Semester $row[3]</p>"; 

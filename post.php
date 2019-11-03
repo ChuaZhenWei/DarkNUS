@@ -10,12 +10,12 @@ if (!isset($_SESSION['user_id'])) {
 
     $forumName = $_GET['fname'];
     $courseName = $_GET['cname'];
-    $acadYear = $_GET['ay'];
-    $semester = $_GET['sem'];
     $threadTitle = $_GET['threadTitle'];
     
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
     
     $post = "
         SELECT *
