@@ -4,24 +4,40 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
-if (!isset($_SESSION['user_id'])) { ?>
-    <h2>Access Denied. User Not Logged In</h2>
-<?php } else {
+if (!isset($_SESSION['user_id'])) {
+    header('location:login.php');
+} else {
+    $id = $_SESSION['user_id'];
+    $role = $_SESSION['user_role'];
+    $row = $_GET['row'];
 
-$id = $_SESSION['user_id'];
-$role = $_SESSION['user_role'];
-
-if ($role == 'Student') {
-    $query = "SELECT *
-        FROM students
-        WHERE studid = '$id'";
+    $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, T.acadYear, T.sem, TG.tutID, 
+        TG.tutDay, TG.startTime, TG.endTime, S.name, S.email
+        FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
+        T.profID = TG.profID AND T.courseName = TG.courseName
+        AND T.acadYear = TG.acadYear AND T.sem = TG.sem
+        INNER JOIN Teaching_Assistants TA ON T.courseName = TA.courseName AND T.acadYear = TA.acadYear 
+        AND T.sem = TA.sem AND TG.tutID = TA.tutID NATURAL JOIN Students S
+        WHERE T.profID = '$id'";
     
-} elseif ($role == 'Professor') {
-    $query = "SELECT *
-        FROM teaches
-        WHERE profid = '$id'";
-}
-
+    $result = pg_query($tutorial);
+    $tutorial_details = pg_fetch_row($result, $row-1);
+    $courseName = $tutorial_details[1];
+    $acadYear = $tutorial_details[2];
+    $sem = $tutorial_details[3];
+    $tutID = $tutorial_details[4];
+    
+    $students = "SELECT studID, name, faculty, email
+        FROM Belongs B NATURAL JOIN Students S
+        WHERE courseName = '$courseName' AND acadYear = $acadYear
+        AND sem = $sem AND tutID = $tutID";
+    
+    $results = pg_query($students);
+    
+    $currentCount = "SELECT COUNT (*)
+        FROM ($students) AS students";
+    
+    $count = pg_query($currentCount);
 ?>
 <html>
     <head>
@@ -34,15 +50,24 @@ if ($role == 'Student') {
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h4>"Tutorial Group Name"</h4>
+                            <?php
+                            echo "<h4>Tutorial Group $tutID</h4>";
+                            ?>
                         </div>
                         <div class="col">
-                            <a class="btn btn-primary" href="addStudentTutorialGroup.php" role="button" style="float: right;">Add Student</a>
+                            <?php
+                            echo "<a class='btn btn-primary' href='addStudentTutorialGroup.php?cname=$courseName&amp;ay=$acadYear&amp;sem=$sem&amp;tutid=$tutID'
+                                    role='button' style='float: right;'>Add Student</a>";
+                            ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p class="font-weight-light">"Number of students"</p>
+                            <p class="font-weight-light">
+                            <?php
+                            $noOfStudents = pg_fetch_result($count, 0);
+                            echo "Number of students: $noOfStudents";
+                            ?></p>
                         </div>
                     </div>
                 </div>
@@ -54,12 +79,16 @@ if ($role == 'Student') {
                             <th>Faculty</th>
                             <th>Email</th>
                         </tr>
-                        <tr>
-                            <td>S12345678</td>
-                            <td>Ryan</td>
-                            <td>Engineering</td>
-                            <td>ryan@u.nus.edu</td>
-                        <tr>
+                        <?php
+                        while ($row = pg_fetch_row($results)) {
+                            echo "<tr>";
+                            echo "<td>$row[0]</td>";
+                            echo "<td>$row[1]</td>";
+                            echo "<td>$row[2]</td>";
+                            echo "<td>$row[3]</td>";
+                            echo "</tr>";
+                        }
+                        ?>
                     </table>
                 </div>
             </div>
