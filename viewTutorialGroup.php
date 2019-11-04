@@ -76,8 +76,10 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="card-body"> 
+                    <?php echo "<form action=''>"; ?>
                     <table width="700" border="0" cellpadding="1" cellspacing="1">
                         <tr>
+                            <th></th>
                             <th>Student ID</th>
                             <th>Name</th>
                             <th>Faculty</th>
@@ -86,6 +88,7 @@ if (!isset($_SESSION['user_id'])) {
                         <?php
                         while ($row = pg_fetch_row($results)) {
                             echo "<tr>";
+                            echo "<td><input type='radio' name='student' value='studentName'></td>";
                             echo "<td>$row[0]</td>";
                             echo "<td>$row[1]</td>";
                             echo "<td>$row[2]</td>";
@@ -100,6 +103,9 @@ if (!isset($_SESSION['user_id'])) {
                         }
                         ?>
                     </table>
+                    <br>
+                    <input type="submit" name="Action" value="Remove Student">
+                    <?php echo "</form>"; ?>
                 </div>
             </div>
     </body>
