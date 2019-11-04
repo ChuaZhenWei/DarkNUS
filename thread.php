@@ -68,9 +68,6 @@ if (!isset($_SESSION['user_id'])) {
                             <?php
                             echo "<a class='btn btn-primary' href='createThread.php?fname=$forumName&amp;cname=$courseName'
                                 role='button'>Create New Thread</a>";
-                            if ($role == 'Professor') {
-                                echo "<a class='btn btn-primary' href='addForumTutorialGroup.php role='button'>Add Tutorial Group</a>";
-                            }
                             ?>          
                         </li>       
                     </ul>
@@ -91,6 +88,9 @@ if (!isset($_SESSION['user_id'])) {
                                 echo "<td>";
                                 echo "<p>Number of replies: $row[3]</p>";
                                 echo "</td>";
+                                if ($role == 'Professor') {
+                                    echo "<a href='doDeleteThread.php?cname=$row[0]&amp;fname=$row[1]&amp;threadTitle=$row[2]'><input type = 'button' value = 'Delete' style = 'float : right'></a>";
+                                }
                                 echo "</tr>";
                             }
                             ?>

@@ -24,9 +24,18 @@ if (!isset($_SESSION['user_id'])){
         
         pg_query($insert);
         
+        if (pg_last_notice($link)) {
+            $_SESSION['result'] = pg_last_notice($link);
+            header("location:createForumTutId.php");
+        } else if (pg_last_error($link)) {
+            $_SESSION['result'] = "Forum Already Exist";
+            header("location:createForumTutId.php");
+        }
+        
         header("location:forum.php");
     } else {
-        echo "LL";
+        $_SESSION['result'] = "Please fill in the missing fields";
+        header("location:createForumTutId.php");
     }
 }
 pg_close();

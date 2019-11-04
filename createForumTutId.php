@@ -72,7 +72,6 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                             <input type="submit" name="Action" value="Create Forum">
                         </form>
-
                         <hr>
                         <br>
                     </div>

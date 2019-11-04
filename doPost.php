@@ -23,6 +23,12 @@ if (!isset($_SESSION['user_id'])){
         
         pg_query($insert);
         
+        if (pg_last_notice($link)) {
+            $_SESSION['result'] = pg_last_notice($link);
+        } else if (pg_last_error($link)) {
+            $_SESSION['result'] = "Post Already Exist. Please Avoid Duplicated Post";
+        }
+        
         header("location:post.php?fname=$forumName&cname=$courseName&threadTitle=$threadTitle");
     } else if (isset($_GET['coursename'])) {
         $courseName = $_GET['coursename'];
