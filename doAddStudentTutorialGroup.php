@@ -24,7 +24,10 @@ if (!isset($_SESSION['user_id'])){
         if ($message) {
             $_SESSION['error'] = $message;
         }
-       
+        $message = pg_last_error($link);
+        if ($message) {
+            $_SESSION['error'] = "The student already exist in one of the tutorial group";
+        }
     }
     header("location:viewTutorialGroup.php?theRow=$theRow");
 }
