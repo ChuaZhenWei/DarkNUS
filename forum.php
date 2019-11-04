@@ -89,6 +89,9 @@ if (!isset($_SESSION['user_id'])) {
                                 echo "</td>";
                                 echo "<td>";
                                 echo "<p>Number of Discussion Threads: $threadCount</p>";
+                                if ($role == 'Professor') {
+                                    echo "<a href='doDeleteForum.php?fname=$row[0]&amp;cname=$row[1]'><input type = 'button' value = 'Delete' style = 'float : right'></a>";
+                                }
                                 echo "</td>";
                                 echo "</tr>";
                             }
