@@ -92,7 +92,7 @@ if (!isset($_SESSION['user_id'])) {
                         <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
                         <div class="form-group">
                             <label for="comment">Comment:</label>
-                            <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
+                            <textarea name="comment" class="form-control" rows="5" id="comment" required></textarea>
                         </div>
                         <input type="submit" name="Action" value="Submit">
                     </form>

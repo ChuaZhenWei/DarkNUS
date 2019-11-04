@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
                 <br>
                 <nav class="navbar">
                     <form class="form-inline my-2 my-sm-0" method="post" action="">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search Course" aria-label="Search" name="courseName">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Course" aria-label="Search" name="courseName" required>
                         <button name="searchCourse" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>
