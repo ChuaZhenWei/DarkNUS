@@ -41,6 +41,7 @@ if (!isset($_SESSION['user_id'])) {
     </head>
     <body>
         <h2>Tutorial Group</h2>
+        <a class='btn btn-primary' href='createTutorialGroup.php' role='button'>Create Tutorial Group</a>
         <div>
             <table width="700" border="0" cellpadding="1" cellspacing="1">
                 <tr>
