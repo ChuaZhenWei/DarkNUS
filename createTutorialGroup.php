@@ -88,6 +88,7 @@ if (!isset($_SESSION['user_id'])) {
                             <label class="control-label col-sm-2" for="selectedTA">Teaching Assistant (Optional):</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="selectedTA">
+                                    <option value=''>Select Teaching Assistant</option>
                                     <?php
                                     while ($name = pg_fetch_row($names)) {
                                         echo "<option value='$name[0]'>$name[1] ($name[0])</option>";
