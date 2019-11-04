@@ -30,7 +30,9 @@ if (!isset($_SESSION['user_id'])){
                     VALUES ('$row[0]', '$row[2]', '$row[3]', '$row[4]')";
               
                 pg_query($insert);
-                echo pg_last_error();
+                if (!pg_last_error()) {
+                    $_SESSION['Adding'] = "Student Successfully Added to Course";
+                }
             }
             
             $delete = "DELETE FROM REQUESTS
@@ -44,7 +46,6 @@ if (!isset($_SESSION['user_id'])){
                 $_SESSION['Adding'] = pg_last_notice($link);
             } else {
                 pg_query($delete);
-                $_SESSION['Adding'] = "Student Successfully Added to Course";
             }
         }
     }
