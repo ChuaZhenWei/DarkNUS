@@ -49,7 +49,15 @@ if (!isset($_SESSION['user_id'])) { ?>
                                 <input class="form-control" type="time" name="endtime" required>
                             </div>
                         </div>
-                                             
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="courseName">Select Teaching Assistant:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="selected">
+                                    <option value="" selected>Select Teaching Assistant</option>
+                                    <option value="TAName">TA Name</option>
+                                </select>
+                            </div>
+                        </div>                     
                         <input type="submit" name="Action" value="Edit Tutorial Group">
                         <input type="submit" name="Action" value="Delete Tutorial Group">
                     </form>
