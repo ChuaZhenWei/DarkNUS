@@ -52,6 +52,7 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Teaching Assistant</th>
                     <th>Teaching Assistant's Email</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <?php
                 while($row = pg_fetch_row($results)) {
@@ -65,6 +66,7 @@ if (!isset($_SESSION['user_id'])) {
                     echo "<td>$row[7]</td>";
                     if ($role == 'Professor') {
                         echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?theRow=$row[0]' role='button'>View</a></td>";
+                        echo "<td><a class='btn btn-primary btn-sm' href='editTutorialGroup.php' role='button'>Edit</a></td>";
                     }
                     echo "<tr>";
                 }
