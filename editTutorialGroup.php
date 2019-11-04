@@ -38,13 +38,13 @@ if (!isset($_SESSION['user_id'])) { ?>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">Start Time:</label>
+                            <label class="control-label col-sm-2" for="starttime">Start Time:</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="time" name="starttime" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">End Time:</label>
+                            <label class="control-label col-sm-2" for="endtime">End Time:</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="time" name="endtime" required>
                             </div>
