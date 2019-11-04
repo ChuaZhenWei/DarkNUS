@@ -4,11 +4,22 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
-if (!isset($_SESSION['user_id'])) { ?>
-    <h2>Access Denied. User Not Logged In</h2>
-<?php } else {
+if (!isset($_SESSION['user_id'])) { 
+    header("location:login.php");
+}else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $sem = $_SESSION['sem'];
+    
+    $courseName = $_GET['coursename'];
+    $tutID = $_GET['tutid'];
+    
+    $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+    
+    $names = "SELECT studID, name FROM Students";
+    
+    $names = pg_query($names);
 ?>
 <html>
     <head>
@@ -28,12 +39,19 @@ if (!isset($_SESSION['user_id'])) { ?>
                 <div class="card-body">                   
                     <h4>Edit "Tutorial Group"</h4>
                     <hr>
-                    <form class="form-horizontal" method="post" action="tutorialGroup.php">
+                    <form class="form-horizontal" method="post" action="doEditTutorialGroup.php">
+                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                        <input type="hidden" value="<?php echo $tutID ?>" name="tutid">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="tutday">Tutorial Day:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="selected" required>
-                                    <option value="tutday">Tutorial Day</option>
+                                <select class="form-control" name="day" required>
+                                    <option value=''>Select a Day</option>
+                                    <?php
+                                    foreach ($days as $day) {
+                                        echo "<option value='$day'>$day</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -50,16 +68,19 @@ if (!isset($_SESSION['user_id'])) { ?>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="courseName">Select Teaching Assistant:</label>
+                            <label class="control-label col-sm-2" for="TA">Select Teaching Assistant:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="selected">
-                                    <option value="" selected>Select Teaching Assistant</option>
-                                    <option value="TAName">TA Name</option>
+                                <select class="form-control" name="ta">
+                                    <option value=''>Select Teaching Assistant</option>
+                                    <?php
+                                    while ($name = pg_fetch_row($names)) {
+                                        echo "<option value='$name[0]'>$name[1] ($name[0])</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>                     
-                        <input type="submit" name="Action" value="Edit Tutorial Group">
-                        <input type="submit" name="Action" value="Delete Tutorial Group">
+                        <input type="submit" name="Action" value="Update">
                     </form>
 
                     <hr>
