@@ -82,6 +82,9 @@ $result = pg_query($course);
                     if ($role == 'Student') {
                         echo "<td> $row[5]</td>";
                     }
+                    if ($role == 'Professor') {
+                        echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                    }
                 echo "<tr>";
             }
             ?>
