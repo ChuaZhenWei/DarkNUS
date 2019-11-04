@@ -17,6 +17,8 @@ if (!isset($_SESSION['user_id'])) {
     $acadYear = $_SESSION['acadYear'];
     $sem = $_SESSION['sem'];
     
+    $TA = false;
+    
     $post = "
         SELECT *
         FROM
@@ -32,8 +34,20 @@ if (!isset($_SESSION['user_id'])) {
         AND T.acadYear = $acadYear AND T.sem = $sem AND T.threadTitle = '$threadTitle'
         ) AS A
         ORDER BY A.posted";
-
+    
     $results = pg_query($post);
+    
+    $findTA = "SELECT *
+        FROM TEACHING_ASSISTANTS
+        NATURAL JOIN FORUMS
+        WHERE studid = '$id'
+        AND acadyear = '$acadYear'
+        AND sem = '$sem'";
+
+    
+    if (pg_num_rows(pg_query($findTA)) > 0) {
+        $TA = true;
+    } 
 ?>
 <html>
     <head>
@@ -87,7 +101,7 @@ if (!isset($_SESSION['user_id'])) {
                     $row = pg_fetch_row($results);
                     while ($row = pg_fetch_row($results)) {
                         echo "<p>Reply by $row[0]";
-                        if ($row[6] == $id || $role == 'Professor') {
+                        if ($row[6] == $id || $role == 'Professor' || $TA == true) {
                                 echo "<a href='doPost.php?coursename=$row[1]&amp;forumname=$row[2]&amp;tt=$row[3]&amp;td=$row[4]&amp;lForum=$forumName&amp;lCourse=$courseName&amp;lTitle=$threadTitle'><input type = 'button' value = 'Delete' style = 'float : right'></a>";
                         }
                         echo "</p>";
