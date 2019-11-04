@@ -13,12 +13,11 @@ if (!isset($_SESSION['user_id'])){
         $semester = $_SESSION['sem'];
         
         $selected = $_POST['selectedStudent'];
-        $studID = $_POST['studID'];
         $courseName = $_POST['courseName'];
         $tutID = $_POST['tutID'];
         
         $insert = "INSERT INTO Belongs (studID, courseName, acadYear, sem, tutID)
-            VALUES ('$studID', '$courseName', $acadYear, $semester, $tutID)";
+            VALUES ('$selected', '$courseName', $acadYear, $semester, $tutID)";
           
         $query = pg_query($link, $insert);
         $message = pg_last_notice($link);
