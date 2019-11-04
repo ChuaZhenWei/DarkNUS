@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
     $acadYear = $_SESSION['acadYear'];
-    $semester = $_SESSION['sem'];
+    $sem = $_SESSION['sem'];
     
     if ($role == 'Student') {
         header('location:tutorialGroup.php');
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
     
     $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
     
-    $courseName = "SELECT DISTINCT courseName FROM Teaches T WHERE T.profID = '$id'";
+    $courseName = "SELECT DISTINCT courseName FROM Teaches T WHERE T.profID = '$id' AND acadyear = $acadYear AND sem = $sem";
     $courses = pg_query($courseName);
     
     $name = "SELECT studID, name FROM Students";
