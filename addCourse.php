@@ -25,13 +25,13 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="courseName">Course Name:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="coursename" type="text" placeholder="Course Name">
+                                <input class="form-control" name="coursename" type="text" placeholder="Course Name" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="faculty">Faculty:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="faculty" type="text" placeholder="Faculty">
+                                <input class="form-control" name="faculty" type="text" placeholder="Faculty" required>
                             </div>
                         </div>
                         <form class="form-horizontal" method="post" action="tutorialGroup.php">
