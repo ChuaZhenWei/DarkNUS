@@ -75,7 +75,7 @@ if (!isset($_SESSION['user_id'])) {
                         </li>       
                     </ul>
                     <form class="form-inline my-2 my-sm-0" method="post" action="">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search" name="threadTitle">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search Threads" aria-label="Search" name="threadTitle" required>
                         <button name="searchThread" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </nav>
