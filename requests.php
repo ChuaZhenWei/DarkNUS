@@ -67,9 +67,18 @@ if (!isset($_SESSION['user_id'])) {
             <br />
             <input type="Submit" name ="Action" value="Accept">
             <input type="Submit" name ="Action" value="Reject">
+            <br />
+            <?php
+            if (isset($_SESSION['Adding'])) {
+                $message = $_SESSION['Adding'];
+                echo "$message";
+                unset($_SESSION['Adding']);
+            }
+            ?>
         </form>  
     </body>
 </html>
 <?php
 }
+pg_close($link);
 ?>

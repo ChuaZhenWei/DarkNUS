@@ -30,6 +30,7 @@ if (!isset($_SESSION['user_id'])){
                     VALUES ('$row[0]', '$row[2]', '$row[3]', '$row[4]')";
               
                 pg_query($insert);
+                echo pg_last_error();
             }
             
             $delete = "DELETE FROM REQUESTS
@@ -39,13 +40,16 @@ if (!isset($_SESSION['user_id'])){
                     AND acadyear = '$row[3]'
                     AND sem = '$row[4]'";
             
-            pg_query($delete);
-            
-            header('location:requests.php');
+            if (pg_last_notice($link)) {
+                $_SESSION['Adding'] = "Max Headcount Reached";
+            } else {
+                pg_query($delete);
+                $_SESSION['Adding'] = "Student Successfully Added to Course";
+            }
         }
     }
     header('location:requests.php');
 }
-pg_close();
+pg_close($link);
 ?>
 
