@@ -86,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
                         echo "<p>$threadDetails</p>";
                         echo "<br>";
                         ?>
-                    <form method="post" action="doPost.php  ">
+                    <form method="post" action="doPost.php">
                         <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
                         <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">

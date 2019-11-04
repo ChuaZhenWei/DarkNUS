@@ -50,9 +50,8 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Student Faculty</th>
                 </tr>
                 <?php while ($row = pg_fetch_row($results)) { 
-                    echo "<tr>"; ?>
-                <td><input type = 'radio' name = 'requestChoice' value = '<?php echo $row[0] ?>'></td>
-                        <?php
+                    echo "<tr>";
+                        echo "<td><input type = 'radio' name = 'requestChoice' value = '$row[0]'></td>";
                         echo "<td>$row[3]</td>";
                         echo "<td>$row[4]</td>";
                         echo "<td>$row[5]</td>";

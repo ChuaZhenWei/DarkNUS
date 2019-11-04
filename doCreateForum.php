@@ -15,12 +15,10 @@ if (!isset($_SESSION['user_id'])){
         $forumdesc = $_POST['forumdesc'];
         
         $acadYear = $_SESSION['acadYear'];
-        $semester = $_SESSION['sem'];
-        
-        echo "fn: $forumName, cn: $courseName, tid: $tutId, fd: $forumdesc";
+        $sem = $_SESSION['sem'];
         
         $insert = "INSERT INTO FORUMS (profid, coursename, acadYear, sem, forumName, tutid, forumdescription)
-                VALUES ('$id', '$courseName', $acadYear, $semester, '$forumName', '$tutId', '$forumdesc')";
+                VALUES ('$id', '$courseName', $acadYear, $sem, '$forumName', '$tutId', '$forumdesc')";
         
         pg_query($insert);
         
