@@ -4,7 +4,7 @@ session_start();
 include ('dbFunction.php');
 
 if (!isset($_SESSION['user_id'])){
-    header('location:index.php');
+    header('location:login.php');
 } else {
     if (isset($_POST['Action']) ) {
         $id = $_SESSION['user_id'];
