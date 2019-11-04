@@ -42,6 +42,18 @@ $result = pg_query($course);
     </head>
     <body>
         <h2>Courses</h2>
+        <?php
+        if ($role == 'Professor')
+        {
+            echo "<nav class='navbar'>";
+                echo "<ul class='navbar-nav'>";
+                    echo "<li class='nav-item'>";
+                        echo "<a class='btn btn-primary' href='addCourse.php' role='button'>Add Course</a>";
+                    echo "</li>";
+                echo "</ul>";
+            echo "</nav>";
+        }
+        ?>
         <table width="1500" border="0" cellpadding="1" cellspacing="1">
             <col width = "500">
             <col width = "200">
