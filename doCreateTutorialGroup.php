@@ -13,6 +13,10 @@ if (!isset($_SESSION['user_id'])) {
         $acadYear = $_SESSION['acadYear'];
         $semester = $_SESSION['sem'];
         
+        if ($role == 'Student') {
+            header('location:tutorialGroup.php');
+        }
+        
         $selectedCourse = $_POST['courseName'];
         $tutID = $_POST['tutID'];
         $headcount = $_POST['headcount'];
