@@ -92,6 +92,12 @@ if (!isset($_SESSION['user_id'])) {
                             echo "<td>$row[3]</td>";
                             echo "</tr>";
                         }
+                        
+                        if (isset($_SESSION['error'])) {
+                            $message = $_SESSION['error'];
+                            echo "<script type='text/javascript'>alert('$message');</script>";
+                            unset($_SESSION['error']);
+                        }
                         ?>
                     </table>
                 </div>
