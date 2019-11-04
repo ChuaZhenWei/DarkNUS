@@ -76,7 +76,7 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="card-body"> 
-                    <?php echo "<form action=''>"; ?>
+                    <?php echo "<form action='deleteStudentTutorialGroup.php' method='post'>"; ?>
                     <table width="700" border="0" cellpadding="1" cellspacing="1">
                         <tr>
                             <th></th>
@@ -88,12 +88,15 @@ if (!isset($_SESSION['user_id'])) {
                         <?php
                         while ($row = pg_fetch_row($results)) {
                             echo "<tr>";
-                            echo "<td><input type='radio' name='student' value='studentName'></td>";
+                            echo "<td><input type='radio' name='studID' value='$row[0]'></td>";
                             echo "<td>$row[0]</td>";
                             echo "<td>$row[1]</td>";
                             echo "<td>$row[2]</td>";
                             echo "<td>$row[3]</td>";
                             echo "</tr>";
+                            echo "<input type='hidden' value=$theRow name='theRow'>";
+                            echo "<input type='hidden' value='$courseName' name='courseName'>";
+                            echo "<input type='hidden' value=$tutID name='tutID'>";
                         }
                         
                         if (isset($_SESSION['error'])) {

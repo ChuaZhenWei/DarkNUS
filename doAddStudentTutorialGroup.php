@@ -22,7 +22,10 @@ if (!isset($_SESSION['user_id'])){
           
         $query = pg_query($link, $insert);
         $message = pg_last_notice($link);
-        $_SESSION['error'] = $message;
+        if ($message) {
+            $_SESSION['error'] = $message;
+        }
+       
     }
     header("location:viewTutorialGroup.php?theRow=$theRow");
 }
