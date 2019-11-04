@@ -54,41 +54,53 @@ $result = pg_query($course);
             echo "</nav>";
         }
         ?>
-        <table width="1500" border="0" cellpadding="1" cellspacing="1">
-            <col width = "500">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <col width = "200">
-            <tr>
-                <th>Course Name</th>
-                <th>Faculty</th>
-                <?php
-                if ($role == 'Student') {
-                    echo "<th>Professor Name</th>";
-                } ?>
-                <th>Lecture Day</th>
-                <th>Lecture Start Time</th>
-                <th>Lecture End Time</th>
-            </tr>
-            <?php while ($row = pg_fetch_row($result)) {
-                echo "<tr>";
-                    echo "<td> $row[0]</td>";
-                    echo "<td> $row[1]</td>";
-                    echo "<td> $row[2]</td>";
-                    echo "<td> $row[3]</td>";
-                    echo "<td> $row[4]</td>";
-                    if ($role == 'Student') {
-                        echo "<td> $row[5]</td>";
-                    }
+        <form action='doDeleteCourse.php' method='post'>
+            <table width="1500" border="0" cellpadding="1" cellspacing="1">
+                <col width = "30">
+                <col width = "500">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <col width = "200">
+                <tr>
+                    <?php
                     if ($role == 'Professor') {
-                        echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                        echo "<th></th>";
                     }
-                echo "<tr>";
-            }
-            ?>
-        </table>
+                    ?>
+                    <th>Course Name</th>
+                    <th>Faculty</th>
+                    <?php
+                    if ($role == 'Student') {
+                        echo "<th>Professor Name</th>";
+                    } ?>
+                    <th>Lecture Day</th>
+                    <th>Lecture Start Time</th>
+                    <th>Lecture End Time</th>
+                </tr>
+                <?php while ($row = pg_fetch_row($result)) {
+                    echo "<tr>";
+                        if ($role == 'Professor') {
+                            echo "<td><input type = 'radio' name = 'delChoice' value = '$row[0]'></td>";
+                        }
+                        echo "<td> $row[0]</td>";
+                        echo "<td> $row[1]</td>";
+                        echo "<td> $row[2]</td>";
+                        echo "<td> $row[3]</td>";
+                        echo "<td> $row[4]</td>";
+                        if ($role == 'Student') {
+                            echo "<td> $row[5]</td>";
+                        } else if ($role == 'Professor') {
+                            echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                        }
+                    echo "<tr>";
+                }
+                ?>
+            </table>
+            <br/>
+            <input type="Submit" name ="Action" value="Delete">
+        </form>
     </body>
 </html>
 <?php
