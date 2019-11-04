@@ -18,16 +18,16 @@ if (!isset($_SESSION['user_id'])) {
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Forums F LEFT JOIN Enrolls E ON F.courseName = E.courseName
             AND F.acadYear = E.acadYear AND F.sem = E.sem 
-            WHERE F.tutID = 0 AND E.studID = '$id' AND F.acadYear = $acadYear AND F.sem = $semester
+            WHERE F.tutID = 0 AND E.studID = '$id' AND F.acadYear = $acadYear AND F.sem = $sem
             UNION
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Belongs B NATURAL JOIN Forums F
-            WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $semester
+            WHERE B.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem
             UNION
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
             FROM Teaching_Assistants TA LEFT JOIN Forums F ON TA.courseName = F.courseName
             AND TA.acadYear = F.acadYear AND TA.sem = F.sem  
-            WHERE TA.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $semester";
+            WHERE TA.studid = '$id' AND F.acadYear = $acadYear AND F.sem = $sem";
     } elseif ($role == 'Professor') {
         $forum = "
             SELECT DISTINCT F.forumName, F.courseName, F.acadYear, F.sem
