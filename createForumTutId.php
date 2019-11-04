@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <label class="control-label col-sm-2" for="tutID">Tutorial ID:</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" name="tutid" required>
-                                        <option value=""></option>
+                                        <option value="">Select Tutorial ID</option>
                                         <?php
                                         while ($row = pg_fetch_row($result)) {
                                             echo "<option name='tutid' value='$row[0]'>$row[0]</option>";
