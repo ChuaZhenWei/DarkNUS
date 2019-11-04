@@ -56,7 +56,7 @@ if (!isset($_SESSION['user_id'])) {
                     echo "<nav class='navbar'>";
                         echo "<ul class='navbar-nav'>";
                             echo "<li class='nav-item'>";
-                                echo "<a class='btn btn-primary' href='createForum.php' role='button'>Create Forum</a>";
+                                echo "<a class='btn btn-primary' href='createForumMod.php' role='button'>Create Forum</a>";
                             echo "</li>";
                         echo "</ul>";
                     echo "</nav>";
