@@ -86,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
                     if ($role == 'Professor') {
                         echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?theRow=$row[0]' role='button'>View</a></td>";
                         echo "<td><a class='btn btn-primary btn-sm' href='editTutorialGroup.php' role='button'>Edit</a></td>";
-                        echo "<td><a class='btn btn-primary btn-sm' href='deleteTutorialGroup.php' role='button'>Delete</a></td>";
+                        echo "<td><a class='btn btn-primary btn-sm' href='deleteTutorialGroup.php?courseName=$row[1]&tutID=$row[2]' role='button'>Delete</a></td>";
                     }
                     echo "<tr>";
                 }
