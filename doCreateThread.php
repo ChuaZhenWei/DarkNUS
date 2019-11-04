@@ -22,6 +22,14 @@ if (!isset($_SESSION['user_id'])){
                 '$postDetail', '$id', current_timestamp, NULL)";
         
         pg_query($insert);
+        
+        if (pg_last_notice($link)) {
+            $_SESSION['result'] = pg_last_notice($link);
+            header("location:createThread.php?fname=$forumName&cname=$courseName");
+        } else if (pg_last_error($link)) {
+            $_SESSION['result'] = "Thread Already Exist";
+            header("location:createThread.php?fname=$forumName&cname=$courseName");
+        }
     }
     header("location:thread.php?fname=$forumName&cname=$courseName");
 }
