@@ -41,7 +41,7 @@ if (!isset($_SESSION['user_id'])){
                     AND sem = '$row[4]'";
             
             if (pg_last_notice($link)) {
-                $_SESSION['Adding'] = "Max Headcount Reached";
+                $_SESSION['Adding'] = pg_last_notice($link);
             } else {
                 pg_query($delete);
                 $_SESSION['Adding'] = "Student Successfully Added to Course";
