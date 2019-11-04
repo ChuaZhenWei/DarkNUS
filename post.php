@@ -42,7 +42,8 @@ if (!isset($_SESSION['user_id'])) {
         NATURAL JOIN FORUMS
         WHERE studid = '$id'
         AND acadyear = '$acadYear'
-        AND sem = '$sem'";
+        AND sem = '$sem'
+        AND coursename = '$courseName'";
 
     
     if (pg_num_rows(pg_query($findTA)) > 0) {
