@@ -41,6 +41,7 @@ if (!isset($_SESSION['user_id'])) {
     </head>
     <body>
         <h2>Tutorial Group</h2>
+        <a class='btn btn-primary' href='createTutorialGroup.php' role='button'>Create Tutorial Group</a>
         <div>
             <table width="700" border="0" cellpadding="1" cellspacing="1">
                 <tr>
@@ -51,6 +52,7 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Tutorial End Time</th>
                     <th>Teaching Assistant</th>
                     <th>Teaching Assistant's Email</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 <?php
@@ -65,6 +67,7 @@ if (!isset($_SESSION['user_id'])) {
                     echo "<td>$row[7]</td>";
                     if ($role == 'Professor') {
                         echo "<td><a class='btn btn-primary btn-sm' href='viewTutorialGroup.php?theRow=$row[0]' role='button'>View</a></td>";
+                        echo "<td><a class='btn btn-primary btn-sm' href='editTutorialGroup.php' role='button'>Edit</a></td>";
                     }
                     echo "<tr>";
                 }

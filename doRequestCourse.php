@@ -47,6 +47,6 @@ if (!isset($_SESSION['user_id'])){
         header('location:requestCourse.php');
     }
 }
-pg_close();
+pg_close($link);
 ?>
 
