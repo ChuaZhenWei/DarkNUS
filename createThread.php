@@ -33,8 +33,8 @@ if (!isset($_SESSION['user_id'])) { ?>
                     <form method="post" action="doCreateThread.php">
                         <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                        <input class="form-control" name="thread_title" type="text" placeholder="Title"><br>
-                        <textarea class="form-control" name="post_content" placeholder="Text (required)" rows="5"></textarea><br>
+                        <input class="form-control" name="thread_title" type="text" placeholder="Title" required><br>
+                        <textarea class="form-control" name="post_content" placeholder="Text (required)" rows="5" required></textarea><br>
                         <input type="submit" name="Action" value="Create thread">
                     </form>
 

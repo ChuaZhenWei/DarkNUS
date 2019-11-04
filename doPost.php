@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])){
     $acadYear = $_SESSION['acadYear'];
     $sem = $_SESSION['sem'];
     
-    if (isset($_POST['Action']) && isset($_POST['comment'])) {
+    if (isset($_POST['Action'])) {
         $forumName = $_POST['forumName'];
         $courseName = $_POST['courseName'];
         $threadTitle = $_POST['threadTitle'];      

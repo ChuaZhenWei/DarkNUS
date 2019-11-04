@@ -6,7 +6,7 @@ include ('dbFunction.php');
 if (!isset($_SESSION['user_id'])){
     header('location:index.php');
 } else {
-    if (isset($_POST['Action']) && isset($_POST['forumName']) && $_POST['tutid']!='' && isset($_POST['forumdesc']) ) {
+    if (isset($_POST['Action']) && isset($_POST['forumName']) && isset($_POST['forumdesc']) ) {
         $id = $_SESSION['user_id'];
         
         $forumName = $_POST['forumName'];
@@ -31,9 +31,6 @@ if (!isset($_SESSION['user_id'])){
         }
         
         header("location:forum.php");
-    } else {
-        $_SESSION['result'] = "Please fill in the missing fields";
-        header("location:createForumTutId.php");
     }
 }
 pg_close();

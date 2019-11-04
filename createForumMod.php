@@ -38,8 +38,8 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="courseName">Choose Course:</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" name="selected">
-                                        <option name='coursename' value=''></option>
+                                    <select class="form-control" name="selected" required>
+                                        <option name='coursename' value=''>Select a course</option>
                                         <?php
                                         while ($row = pg_fetch_row($result)) {
                                             echo "<option name='coursename' value='$row[0]'>$row[0]</option>";

@@ -10,9 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 } else if ($_SESSION['user_role']!='Professor') {
     header('location:index.php');
     
-} else if (!isset($_POST['selected']) || $_POST['selected']=='') {
-    header('location:createForumMod.php');
-    
 } else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
@@ -48,13 +45,13 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="forumName">Forum Name:</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="forumName" type="text" placeholder="Forum Name">
+                                    <input class="form-control" name="forumName" type="text" placeholder="Forum Name" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="tutID">Tutorial ID:</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" name="tutid">
+                                    <select class="form-control" name="tutid" required>
                                         <option value=""></option>
                                         <?php
                                         while ($row = pg_fetch_row($result)) {
@@ -67,7 +64,7 @@ if (!isset($_SESSION['user_id'])) {
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="forumdesc">Forum Description:</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="forumdesc" placeholder="Forum Description" rows="3"></textarea>
+                                    <textarea class="form-control" name="forumdesc" placeholder="Forum Description" rows="3" required></textarea>
                                 </div>
                             </div>
                             <input type="submit" name="Action" value="Create Forum">
