@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'])){
         $insert = "INSERT INTO Belongs (studID, courseName, acadYear, sem, tutID)
             VALUES ('$selected', '$courseName', $acadYear, $semester, $tutID)";
           
-        $query = pg_query($link, $insert);
+        $query = pg_query($insert);
         $message = pg_last_notice($link);
         if ($message) {
             $_SESSION['error'] = $message;

@@ -4,11 +4,25 @@ session_start();
 include ('dbFunction.php');
 include ('navBar.php');
 
-if (!isset($_SESSION['user_id'])) { ?>
-    <h2>Access Denied. User Not Logged In</h2>
-<?php } else {
+if (!isset($_SESSION['user_id'])) {
+    header('location:login.php');
+} else {
     $id = $_SESSION['user_id'];
     $role = $_SESSION['user_role'];
+    $acadYear = $_SESSION['acadYear'];
+    $semester = $_SESSION['sem'];
+    
+    if ($role == 'Student') {
+        header('location:tutorialGroup.php');
+    }
+    
+    $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+    
+    $courseName = "SELECT DISTINCT courseName FROM Teaches T WHERE T.profID = '$id'";
+    $courses = pg_query($courseName);
+    
+    $name = "SELECT studID, name FROM Students";
+    $names = pg_query($name);
 ?>
 <html>
     <head>
@@ -23,31 +37,62 @@ if (!isset($_SESSION['user_id'])) { ?>
                     <hr>
                     <form class="form-horizontal" method="post" action="doCreateTutorialGroup.php">
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">Tutorial Day:</label>
+                            <label class="control-label col-sm-2" for="courseName">Course Name:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="selected" required>
-                                    <option value="tutday">Tutorial Day</option>
+                                <select class="form-control" name="courseName" required>
+                                    <?php
+                                    while ($course = pg_fetch_row($courses)) {
+                                        echo "<option value='$course[0]'>$course[0]</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">Start Time:</label>
+                            <label class="control-label col-sm-2" for="tutID">Tutorial ID:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="time" name="starttime" required>
+                                <input class="form-control" name="tutID" type="text" placeholder="1" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">End Time:</label>
+                            <label class="control-label col-sm-2" for="headcount">Max Headcount:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="time" name="endtime" required>
+                                <input class="form-control" name="headcount" type="text" placeholder="5" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="courseName">Teaching Assistant (Optional):</label>
+                            <label class="control-label col-sm-2" for="selectedDay">Tutorial Day:</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="selected">
-                                    <option value="" selected>Select Teaching Assistant</option>
-                                    <option value="TAName">TA Name</option>
+                                <select class="form-control" name="selectedDay" required>
+                                    <?php
+                                    foreach ($days as $day) {
+                                        echo "<option value='$day'>$day</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="startTime">Start Time:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="time" name="startTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="endTime">End Time:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="time" name="endTime" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="selectedTA">Teaching Assistant (Optional):</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="selectedTA">
+                                    <?php
+                                    while ($name = pg_fetch_row($names)) {
+                                        echo "<option value='$name[0]'>$name[1] ($name[0])</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div> 
