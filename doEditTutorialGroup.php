@@ -52,10 +52,10 @@ if (!isset($_SESSION['user_id'])){
         
         if (pg_last_notice($link)) {
             $_SESSION['result'] = pg_last_notice($link);
-            echo pg_last_notice($link);
+            header("location:editTutorialGroup.php?coursename=$courseName&tutid=$tutID");
         } else if (pg_last_error($link)) {
             $_SESSION['result'] = "Nothing Changed";
-            echo "error2";
+            header("location:editTutorialGroup.php?coursename=$courseName&tutid=$tutID");
         }
         
         //header("location:TutorialGroup.php");

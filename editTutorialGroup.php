@@ -82,6 +82,13 @@ if (!isset($_SESSION['user_id'])) {
                         </div>                     
                         <input type="submit" name="Action" value="Update">
                     </form>
+                    <?php
+                    if (isset($_SESSION['result'])) {
+                        $message = $_SESSION['result'];
+                        echo "$message";
+                        unset($_SESSION['result']);
+                    }
+                    ?>
 
                     <hr>
                     <br>
