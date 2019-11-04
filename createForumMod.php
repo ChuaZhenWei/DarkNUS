@@ -49,9 +49,14 @@ if (!isset($_SESSION['user_id'])) {
                                     </select>
                                 </div>
                             </div>
-                            <input type="submit" name="Action" value="Create Forum">
+                            <input type="submit" name="Action" value="Next">
                         </form>
-
+                        <?php 
+                        if (isset($_SESSION['result'])) {
+                            echo $_SESSION['result'];
+                            unset($_SESSION['result']);
+                        }
+                        ?>
                         <hr>
                         <br>
                     </div>
