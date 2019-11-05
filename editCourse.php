@@ -32,44 +32,42 @@ if (!isset($_SESSION['user_id']))  {
         <title></title>
     </head>
     <body>
-        <h2>Edit Course</h2>
-            <div class="card">
-                <div class="card-body">                   
-                    <h4>Edit <?php echo $courseName; ?></h4>
-                    <hr>
-                    <form class="form-horizontal" method="post" action="doEditCourse.php">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="selectedDay">Lecture Day:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="selectedDay" required>
-                                <?php
-                                foreach ($days as $day) {
-                                    echo "<option value='$day'>$day</option>";
-                                }
-                                ?>
-                                </select>
-                            </div>
+        <div class="card">
+            <div class="card-body">                   
+                <h4>Edit <?php echo $courseName; ?></h4>
+                <hr>
+                <form class="form-horizontal" method="post" action="doEditCourse.php">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="selectedDay">Lecture Day:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="selectedDay" required>
+                            <?php
+                            foreach ($days as $day) {
+                                echo "<option value='$day'>$day</option>";
+                            }
+                            ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="starttime">Lecture Start Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="time" name="starttime" required>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="starttime">Lecture Start Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="time" name="starttime" required>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="endtime">Lecture End Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="time" name="endtime" required>
-                            </div>
-                        </div>                 
-                        <input type="submit" name="Action" value="Edit Course">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="endtime">Lecture End Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="time" name="endtime" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="submit" name="Action" value="Edit Course" class="btn btn-success">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                    </form>
-
-                    <hr>
-                    <br>
-                </div>
+                    </div>
+                </form>
             </div>
+        </div>
     </body>
 </html> 
 <?php

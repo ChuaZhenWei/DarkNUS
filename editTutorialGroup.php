@@ -34,66 +34,67 @@ if (!isset($_SESSION['user_id'])) {
         <title></title>
     </head>
     <body>
-        <h2>Edit Tutorial Group</h2>
-            <div class="card">
-                <div class="card-body">                   
-                    <h4>Edit Tutorial Group <?php echo $tutID; ?> </h4>
-                    <hr>
-                    <form class="form-horizontal" method="post" action="doEditTutorialGroup.php">
-                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                        <input type="hidden" value="<?php echo $tutID ?>" name="tutid">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="tutday">Tutorial Day:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="day" required>
-                                    <option value=''>Select a Day</option>
-                                    <?php
-                                    foreach ($days as $day) {
-                                        echo "<option value='$day'>$day</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+        <div class="card">
+            <div class="card-body">                   
+                <h4>Edit Tutorial Group <?php echo $tutID; ?> </h4>
+                <hr>
+                <form class="form-horizontal" method="post" action="doEditTutorialGroup.php">
+                    <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                    <input type="hidden" value="<?php echo $tutID ?>" name="tutid">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="tutday">Tutorial Day:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="day" required>
+                                <option value=''>Select a Day</option>
+                                <?php
+                                foreach ($days as $day) {
+                                    echo "<option value='$day'>$day</option>";
+                                }
+                                ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="starttime">Start Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="time" name="starttime" required>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="starttime">Start Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="time" name="starttime" required>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="endtime">End Time:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="time" name="endtime" required>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="endtime">End Time:</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="time" name="endtime" required>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="TA">Select Teaching Assistant:</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="ta">
-                                    <option value=''>Select Teaching Assistant</option>
-                                    <?php
-                                    while ($name = pg_fetch_row($names)) {
-                                        echo "<option value='$name[0]'>$name[1] ($name[0])</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>                     
-                        <input type="submit" name="Action" value="Update">
-                    </form>
-                    <?php
-                    if (isset($_SESSION['result'])) {
-                        $message = $_SESSION['result'];
-                        echo "$message";
-                        unset($_SESSION['result']);
-                    }
-                    ?>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="TA">Select Teaching Assistant:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="ta">
+                                <option value=''>Select Teaching Assistant</option>
+                                <?php
+                                while ($name = pg_fetch_row($names)) {
+                                    echo "<option value='$name[0]'>$name[1] ($name[0])</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="submit" name="Action" value="Update" class="btn btn-success">
+                    </div>
+                </form>
+                <?php
+                if (isset($_SESSION['result'])) {
+                    $message = $_SESSION['result'];
+                    echo "$message";
+                    unset($_SESSION['result']);
+                }
+                ?>
 
-                    <hr>
-                    <br>
-                </div>
+                <hr>
+                <br>
             </div>
+        </div>
     </body>
 </html> 
 <?php
