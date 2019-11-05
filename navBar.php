@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php if (!isset($_SESSION['user_role'])){ ?>
-        <a href="index.php">Home</a> | <a href="login.php">Login</a>
+        
         <?php } 
         else{
             $rol=$_SESSION['user_role'];
