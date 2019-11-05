@@ -114,7 +114,6 @@ if (!isset($_SESSION['user_id'])) {
                     ?>
                     </tbody>
                 </table>
-                <br>
                 <input type="submit" name="Action" value="Remove Student" class="btn btn-danger">
                 <?php echo "</form>"; ?>
             </div>

@@ -48,60 +48,59 @@ if (!isset($_SESSION['user_id'])) {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col">
-                            <h4>Add student to Tutorial Group
-                            <?php
-                            echo $tutID;
-                            ?></h4>
-                        </div>                       
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p class="font-weight-light">Number of students:
-                            <?php
-                            echo "$count</p>";
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <form action="doAddStudentTutorialGroup.php" method="post">
-                <div class="card-body"> 
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Faculty</th>
-                            <th>Email</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h4>Add student to Tutorial Group
                         <?php
-                        while ($row = pg_fetch_row($result)) {
-                            echo "<tr>";
-                            echo "<td><input type='radio' name='selectedStudent' value='$row[0]''></td>";
-                            echo "<td>$row[0]</td>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "</tr>";
-                            echo "<input type='hidden' value=$theRow name='theRow'>";
-                            echo "<input type='hidden' value=$row[0] name='studID'>";
-                            echo "<input type='hidden' value='$row[4]' name='courseName'>";
-                            echo "<input type='hidden' value=$tutID name='tutID'>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                    <hr>
-                    <p><input type="submit" name="Action" value="Add Student" class="btn btn-success"></p>
+                        echo $tutID;
+                        ?></h4>
+                    </div>                       
                 </div>
-                </form>
+                <div class="row">
+                    <div class="col">
+                        <p class="font-weight-light">Number of students:
+                        <?php
+                        echo "$count</p>";
+                        ?>
+                    </div>
+                </div>
             </div>
+            <form action="doAddStudentTutorialGroup.php" method="post">
+            <div class="card-body"> 
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Faculty</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    while ($row = pg_fetch_row($result)) {
+                        echo "<tr>";
+                        echo "<td><input type='radio' name='selectedStudent' value='$row[0]''></td>";
+                        echo "<td>$row[0]</td>";
+                        echo "<td>$row[1]</td>";
+                        echo "<td>$row[2]</td>";
+                        echo "<td>$row[3]</td>";
+                        echo "</tr>";
+                        echo "<input type='hidden' value=$theRow name='theRow'>";
+                        echo "<input type='hidden' value=$row[0] name='studID'>";
+                        echo "<input type='hidden' value='$row[4]' name='courseName'>";
+                        echo "<input type='hidden' value=$tutID name='tutID'>";
+                    }
+                    ?>
+                    </tbody>
+                </table>
+                <input type="submit" name="Action" value="Add Student" class="btn btn-success">
+            </div>
+            </form>
+        </div>
     </body>
 </html> 
 <?php
