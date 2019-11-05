@@ -93,9 +93,6 @@ if (!isset($_SESSION['user_id'])) {
                         <input type="submit" name="Action" value="Add Course" class="btn btn-success">
                     </div>
                 </form>
-
-                <hr>
-                <br>
             </div>
         </div>
     </body>
