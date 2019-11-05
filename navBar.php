@@ -29,7 +29,7 @@
                             <a class="nav-link" href="index.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="requestCourse.php">Request Courses</a>
+                            <a class="nav-link" href="requestCourse.php">Request Course</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="forum.php">Forum</a>
