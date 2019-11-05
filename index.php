@@ -15,7 +15,7 @@ $sem = $_SESSION['sem'];
 
 if ($role == 'Student') {
     $course = "SELECT E.courseName AS CourseName, C.faculty AS FacultyName, P.name AS ProfName,
-        T.lectureDay, T.startTime, T.endTime
+        T.lectureDay, T.startTime, T.endTime, T.maxHeadcount
         FROM Enrolls E
         INNER JOIN Teaches T ON E.courseName = T.courseName AND E.acadYear = T.acadYear AND E.sem = T.sem 
         INNER JOIN Professors P ON T.profID = P.profID 
@@ -25,7 +25,7 @@ if ($role == 'Student') {
         AND E.sem = '$sem'";
     
 } elseif ($role == 'Professor') {
-    $course = "SELECT T.coursename, C.faculty, T.lectureday, T.starttime, T.endtime
+    $course = "SELECT T.coursename, C.faculty, T.lectureday, T.starttime, T.endtime, T.maxHeadcount
         FROM TEACHES T
         JOIN COURSES C ON T.coursename = C.coursename
         WHERE profid = '$id'
@@ -78,6 +78,7 @@ $result = pg_query($course);
                     <th>Lecture Day</th>
                     <th>Lecture Start Time</th>
                     <th>Lecture End Time</th>
+                    <th>Max Headcount</th>
                 </tr>
                 <?php while ($row = pg_fetch_row($result)) {
                     echo "<tr>";
@@ -91,9 +92,12 @@ $result = pg_query($course);
                         echo "<td> $row[4]</td>";
                         if ($role == 'Student') {
                             echo "<td> $row[5]</td>";
+                            echo "<td> $row[6]</td>";
                         } else if ($role == 'Professor') {
-                            echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                            echo "<td> $row[5]</td>";
+                            //echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
                         }
+                        
                     echo "<tr>";
                 }
                 ?>

@@ -51,13 +51,13 @@ if (!isset($_SESSION['user_id'])) {
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="tutID">Tutorial ID:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="tutID" type="text" placeholder="1" required>
+                                <input class="form-control" name="tutID" type="text" placeholder="E.g. 1" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="headcount">Max Headcount:</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="headcount" type="text" placeholder="5" required>
+                                <input class="form-control" name="headcount" type="text" placeholder="E.g. 5" required>
                             </div>
                         </div>
                         <div class="form-group">
