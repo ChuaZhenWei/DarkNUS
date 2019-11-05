@@ -18,13 +18,11 @@ if (!isset($_SESSION['user_id'])) {
     }
     
     $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, TG.tutID, 
-        TG.tutDay, TG.startTime, TG.endTime, S.name, S.email
-        FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
-        T.profID = TG.profID AND T.courseName = TG.courseName
-        AND T.acadYear = TG.acadYear AND T.sem = TG.sem
-        INNER JOIN Teaching_Assistants TA ON T.courseName = TA.courseName AND T.acadYear = TA.acadYear 
-        AND T.sem = TA.sem AND TG.tutID = TA.tutID NATURAL JOIN Students S
-        WHERE T.profID = '$id' AND T.acadYear = $acadYear AND T.sem = $semester";
+            TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadcount
+            FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
+            T.profID = TG.profID AND T.courseName = TG.courseName
+            AND T.acadYear = TG.acadYear AND T.sem = TG.sem
+            WHERE T.profID = '$id' AND T.acadYear = $acadYear AND T.sem = $semester";
     
     $result = pg_query($tutorial);
     $tutorial_details = pg_fetch_row($result, $theRow-1);

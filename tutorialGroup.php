@@ -14,15 +14,13 @@ if (!isset($_SESSION['user_id'])) {
 
     if ($role == 'Student') {
         $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, B.courseName, 
-            B.tutID, TG.tutDay, TG.startTime, TG.endTime, S.name, S.email 
-            FROM Belongs B NATURAL JOIN Tutorial_Groups TG INNER JOIN Teaching_Assistants TA 
-            ON TG.courseName = TA.courseName AND TG.acadYear = TA.acadYear 
-            AND TG.sem = TA.sem AND TG.tutID = TA.tutID INNER JOIN Students S ON TA.studID = S.studID
+            B.tutID, TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadcount
+            FROM Belongs B NATURAL JOIN Tutorial_Groups TG
             WHERE B.studID =  '$id' AND B.acadYear = $acadYear AND B.sem = $semester";
 
     } else if ($role == 'Professor') {
         $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, TG.tutID, 
-            TG.tutDay, TG.startTime, TG.endTime
+            TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadcount
             FROM Teaches T INNER JOIN Tutorial_Groups TG ON 
             T.profID = TG.profID AND T.courseName = TG.courseName
             AND T.acadYear = TG.acadYear AND T.sem = TG.sem
@@ -57,6 +55,7 @@ if (!isset($_SESSION['user_id'])) {
                     <th>Tutorial Day</th>
                     <th>Tutorial Start Time</th>
                     <th>Tutorial End Time</th>
+                    <th>Max Headcount</th>
                     <th>Teaching Assistant</th>
                     <th>Teaching Assistant's Email</th>
                     <th></th>
@@ -76,7 +75,8 @@ if (!isset($_SESSION['user_id'])) {
                     echo "<td>$row[3]</td>";
                     echo "<td>$row[4]</td>";
                     echo "<td>$row[5]</td>";
-                    if (pg_num_rows($ta) > 0) {                        
+                    echo "<td>$row[6]</td>"; 
+                    if (pg_num_rows($ta) > 0) {                   
                         echo "<td>$taResult[0]</td>";
                         echo "<td>$taResult[1]</td>";
                     } else {
