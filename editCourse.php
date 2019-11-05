@@ -35,7 +35,7 @@ if (!isset($_SESSION['user_id']))  {
         <h2>Edit Course</h2>
             <div class="card">
                 <div class="card-body">                   
-                    <h4>Edit "Course Name"</h4>
+                    <h4>Edit <?php echo $courseName; ?></h4>
                     <hr>
                     <form class="form-horizontal" method="post" action="doEditCourse.php">
                         <div class="form-group">

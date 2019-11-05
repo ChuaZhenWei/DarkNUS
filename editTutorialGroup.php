@@ -37,7 +37,7 @@ if (!isset($_SESSION['user_id'])) {
         <h2>Edit Tutorial Group</h2>
             <div class="card">
                 <div class="card-body">                   
-                    <h4>Edit "Tutorial Group"</h4>
+                    <h4>Edit Tutorial Group <?php echo $tutID; ?> </h4>
                     <hr>
                     <form class="form-horizontal" method="post" action="doEditTutorialGroup.php">
                         <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
