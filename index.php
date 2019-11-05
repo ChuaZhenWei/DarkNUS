@@ -49,24 +49,22 @@ $result = pg_query($course);
     </head>
     <body>
         <div class="card">
-        <h4 class="card-header">
-            Dashboard
-        </h4>
-            
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h4>Dashboard</h4>
+                    </div>
+                    <div class="col">
+                        <?php
+                        if ($role == 'Professor')
+                        {
+                            echo "<a class='btn btn-primary' href='addCourse.php' role='button' style='float: right;'>Add Course</a>";
+                        }
+                        ?>
+                    </div>
+                </div> 
+            </div>
             <div class="card-body">
-                <?php
-                if ($role == 'Professor')
-                {
-                    echo "<nav class='navbar'>";
-                        echo "<ul class='navbar-nav'>";
-                            echo "<li class='nav-item'>";
-                                echo "<a class='btn btn-primary' href='addCourse.php' role='button'>Add Course</a>";
-                            echo "</li>";
-                        echo "</ul>";
-                    echo "</nav>";
-                }
-                ?>
-                <br>
                 <form action='doDeleteCourse.php' method='post'>
                     <table class="table">
                         <thead>
@@ -112,15 +110,7 @@ $result = pg_query($course);
                         ?>
                         </tbody>
                     </table>
-            </div>
-                <div class="card-footer">
-                <nav class='navbar'>
-                    <ul class='navbar-nav'>
-                        <li class='nav-item'>
-                            <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>
-                        </li>   
-                    </ul>
-                </nav>
+                    <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>      
                 </form>
             </div>
         </div>
