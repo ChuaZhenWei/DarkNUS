@@ -102,10 +102,14 @@ $result = pg_query($course);
                                     echo "<td> $row[6]</td>";
                                 } else if ($role == 'Professor') {
                                     echo "<td> $row[5]</td>";
-                                    //echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                                    echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php?cname=$row[0]' role='button'>Edit</a></td>";
                                 }
-
                             echo "<tr>";
+                        }
+                        if (isset($_SESSION['error'])) {
+                            $message = $_SESSION['error'];
+                            echo "<script type='text/javascript'>alert('$message');</script>";
+                            unset($_SESSION['error']);
                         }
                         ?>
                         </tbody>
