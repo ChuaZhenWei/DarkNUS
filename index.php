@@ -118,7 +118,12 @@ $result = pg_query($course);
                         ?>
                         </tbody>
                     </table>
-                    <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>      
+                    <?php
+                        if ($role == 'Professor')
+                        {
+                            echo "<button type='Submit' name ='Action' value='Delete' class='btn btn-danger'>Delete Course</button>";
+                        }
+                    ?>
                 </form>
             </div>
         </div>
