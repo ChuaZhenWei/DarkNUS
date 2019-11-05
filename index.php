@@ -84,6 +84,10 @@ $result = pg_query($course);
                             <th>Lecture Start Time</th>
                             <th>Lecture End Time</th>
                             <th>Max Headcount</th>
+                            <?php
+                            if ($role == 'Professor') {
+                                echo "<th></th>";
+                            } ?>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,7 +106,7 @@ $result = pg_query($course);
                                     echo "<td> $row[6]</td>";
                                 } else if ($role == 'Professor') {
                                     echo "<td> $row[5]</td>";
-                                    echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php?cname=$row[0]' role='button'>Edit</a></td>";
+                                    echo "<td><a class='btn btn-success' href='editCourse.php?cname=$row[0]' role='button'>Edit</a></td>";
                                 }
                             echo "<tr>";
                         }
