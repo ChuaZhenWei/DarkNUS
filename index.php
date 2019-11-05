@@ -48,76 +48,82 @@ $result = pg_query($course);
         <title></title>
     </head>
     <body>
+        <div class="card">
         <h5 class="card-header">
             Dashboard
         </h5>
-        <?php
-        if ($role == 'Professor')
-        {
-            echo "<nav class='navbar'>";
-                echo "<ul class='navbar-nav'>";
-                    echo "<li class='nav-item'>";
-                        echo "<a class='btn btn-primary' href='addCourse.php' role='button'>Add Course</a>";
-                    echo "</li>";
-                echo "</ul>";
-            echo "</nav>";
-        }
-        ?>
-        <br>
-        <form action='doDeleteCourse.php' method='post'>
-            <table class="table">
-                <thead>
-                <tr>
-                    <?php
-                    if ($role == 'Professor') {
-                        echo "<th></th>";
-                    }
-                    ?>
-                    <th>Course Name</th>
-                    <th>Faculty</th>
-                    <?php
-                    if ($role == 'Student') {
-                        echo "<th>Professor Name</th>";
-                    } ?>
-                    <th>Lecture Day</th>
-                    <th>Lecture Start Time</th>
-                    <th>Lecture End Time</th>
-                    <th>Max Headcount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php while ($row = pg_fetch_row($result)) {
-                    echo "<tr>";
-                        if ($role == 'Professor') {
-                            echo "<td><input type = 'radio' name = 'delChoice' value = '$row[0]'></td>";
-                        }
-                        echo "<td> $row[0]</td>";
-                        echo "<td> $row[1]</td>";
-                        echo "<td> $row[2]</td>";
-                        echo "<td> $row[3]</td>";
-                        echo "<td> $row[4]</td>";
-                        if ($role == 'Student') {
-                            echo "<td> $row[5]</td>";
-                            echo "<td> $row[6]</td>";
-                        } else if ($role == 'Professor') {
-                            echo "<td> $row[5]</td>";
-                            //echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
-                        }
-                        
-                    echo "<tr>";
+            
+            <div class="card-body">
+                <?php
+                if ($role == 'Professor')
+                {
+                    echo "<nav class='navbar'>";
+                        echo "<ul class='navbar-nav'>";
+                            echo "<li class='nav-item'>";
+                                echo "<a class='btn btn-primary' href='addCourse.php' role='button'>Add Course</a>";
+                            echo "</li>";
+                        echo "</ul>";
+                    echo "</nav>";
                 }
                 ?>
-                </tbody>
-            </table>
-            <br/>
-            <nav class='navbar'>
-                <ul class='navbar-nav'>
-                    <li class='nav-item'>
-                        <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>
-                    </li>   
-                </ul>
-            </nav>
-        </form>
+                <br>
+                <form action='doDeleteCourse.php' method='post'>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <?php
+                            if ($role == 'Professor') {
+                                echo "<th></th>";
+                            }
+                            ?>
+                            <th>Course Name</th>
+                            <th>Faculty</th>
+                            <?php
+                            if ($role == 'Student') {
+                                echo "<th>Professor Name</th>";
+                            } ?>
+                            <th>Lecture Day</th>
+                            <th>Lecture Start Time</th>
+                            <th>Lecture End Time</th>
+                            <th>Max Headcount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php while ($row = pg_fetch_row($result)) {
+                            echo "<tr>";
+                                if ($role == 'Professor') {
+                                    echo "<td><input type = 'radio' name = 'delChoice' value = '$row[0]'></td>";
+                                }
+                                echo "<td> $row[0]</td>";
+                                echo "<td> $row[1]</td>";
+                                echo "<td> $row[2]</td>";
+                                echo "<td> $row[3]</td>";
+                                echo "<td> $row[4]</td>";
+                                if ($role == 'Student') {
+                                    echo "<td> $row[5]</td>";
+                                    echo "<td> $row[6]</td>";
+                                } else if ($role == 'Professor') {
+                                    echo "<td> $row[5]</td>";
+                                    //echo "<td><a class='btn btn-primary btn-sm' href='editCourse.php' role='button'>Edit</a></td>";
+                                }
+
+                            echo "<tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+            </div>
+                <div class="card-footer">
+                <nav class='navbar'>
+                    <ul class='navbar-nav'>
+                        <li class='nav-item'>
+                            <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>
+                        </li>   
+                    </ul>
+                </nav>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 <?php
