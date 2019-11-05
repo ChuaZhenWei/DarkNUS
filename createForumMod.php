@@ -56,7 +56,6 @@ if (!isset($_SESSION['user_id'])) {
                                 </select>
                             </div>
                         </div>
-                        <br>
                         <div class="col-sm-10">
                             <input type="submit" name="Action" value="Next" class="btn btn-primary">
                         </div>
