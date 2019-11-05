@@ -28,53 +28,61 @@ if (!isset($_SESSION['user_id'])) {
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- jQuery library -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2>Enroll Request List</h2>
-        <form action = "doRequest.php" method ="post">
-            <table width="1500" border="0" cellpadding="1" cellspacing="1">
-                <col width = "80">
-                <col width = "500">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
-                <tr>
-                    <th>Select</th>
-                    <th>Course Name</th>
-                    <th>Academic Year</th>
-                    <th>Semester</th>
-                    <th>Student Name</th>
-                    <th>Student Email</th>
-                    <th>Student Faculty</th>
-                </tr>
-                <?php while ($row = pg_fetch_row($results)) { 
-                    echo "<tr>";
-                        echo "<td><input type = 'radio' name = 'requestChoice' value = '$row[0]'></td>";
-                        echo "<td>$row[3]</td>";
-                        echo "<td>$row[4]</td>";
-                        echo "<td>$row[5]</td>";
-                        echo "<td>$row[6]</td>";
-                        echo "<td>$row[7]</td>";
-                        echo "<td>$row[8]</td>";
-                    echo "<tr>";
-                } 
-                ?>
-            </table>
-            <br />
-            <br />
-            <input type="Submit" name ="Action" value="Accept">
-            <input type="Submit" name ="Action" value="Reject">
-            <br />
-            <?php
-            if (isset($_SESSION['Adding'])) {
-                $message = $_SESSION['Adding'];
-                echo "$message";
-                unset($_SESSION['Adding']);
-            }
-            ?>
-        </form>  
+        <div class="card">
+            <h4 class="card-header">
+                Enroll Request List
+            </h4>
+            <div class="card-body">
+                <form action = "doRequest.php" method ="post">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Course Name</th>
+                            <th>Academic Year</th>
+                            <th>Semester</th>
+                            <th>Student Name</th>
+                            <th>Student Email</th>
+                            <th>Student Faculty</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php while ($row = pg_fetch_row($results)) { 
+                            echo "<tr>";
+                                echo "<td><input type = 'radio' name = 'requestChoice' value = '$row[0]'></td>";
+                                echo "<td>$row[3]</td>";
+                                echo "<td>$row[4]</td>";
+                                echo "<td>$row[5]</td>";
+                                echo "<td>$row[6]</td>";
+                                echo "<td>$row[7]</td>";
+                                echo "<td>$row[8]</td>";
+                            echo "<tr>";
+                        } 
+                        ?>
+                        </tbody>
+                    </table>
+                    <br>
+                    <input type="Submit" name ="Action" value="Accept" class="btn btn-primary">
+                    <input type="Submit" name ="Action" value="Reject" class="btn btn-danger">
+                    <?php
+                    if (isset($_SESSION['Adding'])) {
+                        $message = $_SESSION['Adding'];
+                        echo "<div class='text-primary' style='padding-left: 15px; display:inline'>$message</div>";
+                        unset($_SESSION['Adding']);
+                    }
+                    ?>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 <?php

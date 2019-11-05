@@ -58,10 +58,10 @@ else{ ?>
         </script>
     </head>
     <body>
-        <div class="card text-white bg-dark mb-3">
-            <h5 class="card-header">
+        <div class="card">
+            <h4 class="card-header">
                 Change Password
-            </h5>
+            </h4>
             <form method="post" action="doChangePassword.php" onSubmit="return validate(this);">
                 <div class="card-body">
                     <div class="form-group row">
@@ -83,8 +83,6 @@ else{ ?>
                             <input type="hidden" name="id" value="<?php echo $_SESSION['user_id'] ?>">
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
                     <button type="submit" class="btn btn-secondary">Update Password</button>
                 </div>
             </form>
