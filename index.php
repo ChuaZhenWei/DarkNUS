@@ -37,11 +37,20 @@ $result = pg_query($course);
 ?>
 <html>
     <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- jQuery library -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <meta charset="UTF-8">
         <title></title>
     </head>
     <body>
-        <h2>Courses</h2>
+        <h5 class="card-header">
+            Dashboard
+        </h5>
         <?php
         if ($role == 'Professor')
         {
@@ -54,15 +63,10 @@ $result = pg_query($course);
             echo "</nav>";
         }
         ?>
+        <br>
         <form action='doDeleteCourse.php' method='post'>
-            <table width="1500" border="0" cellpadding="1" cellspacing="1">
-                <col width = "30">
-                <col width = "500">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
-                <col width = "200">
+            <table class="table">
+                <thead>
                 <tr>
                     <?php
                     if ($role == 'Professor') {
@@ -80,6 +84,8 @@ $result = pg_query($course);
                     <th>Lecture End Time</th>
                     <th>Max Headcount</th>
                 </tr>
+                </thead>
+                <tbody>
                 <?php while ($row = pg_fetch_row($result)) {
                     echo "<tr>";
                         if ($role == 'Professor') {
@@ -101,9 +107,16 @@ $result = pg_query($course);
                     echo "<tr>";
                 }
                 ?>
+                </tbody>
             </table>
             <br/>
-            <input type="Submit" name ="Action" value="Delete">
+            <nav class='navbar'>
+                <ul class='navbar-nav'>
+                    <li class='nav-item'>
+                        <button type="Submit" name ="Action" value="Delete" class="btn btn-danger">Delete Course</button>
+                    </li>   
+                </ul>
+            </nav>
         </form>
     </body>
 </html>
