@@ -49,9 +49,9 @@ $result = pg_query($course);
     </head>
     <body>
         <div class="card">
-        <h5 class="card-header">
+        <h4 class="card-header">
             Dashboard
-        </h5>
+        </h4>
             
             <div class="card-body">
                 <?php
