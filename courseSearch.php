@@ -26,46 +26,45 @@ if (!isset($_SESSION['user_id'])) {
         <title></title>
     </head>
     <body>
-        <h2>Threads</h2>
-            <div class="card">
-                <h5 class="card-header">
-                    Find a Course
-                </h5>
-                <br>
-                <nav class="navbar">
-                    <form class="form-inline my-2 my-sm-0" method="post" action="">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search Course" aria-label="Search" name="courseName" required>
-                        <button name="searchCourse" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </nav>
-                <div class="card-body">
-                    <table cellspacing="1000">
-                        <tbody>
-                            <?php
-                            while ($row = pg_fetch_row($results)) {
-                                echo "<tr>";
-                                    echo "<th>";
-                                    echo "Course Title";
-                                    echo "</th>";
-                                    echo "<th>";
-                                    echo "Faculty";
-                                    echo "</th>";
-                                echo "</tr>";
-                                
-                                echo "<tr>";
-                                    echo "<td>";
-                                    echo "$row[0]";
-                                    echo "</td>";
-                                    echo "<td>";
-                                    echo "$row[2]";
-                                    echo "</td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="card">
+            <h4 class="card-header">
+                Find a Course
+            </h4>
+            <br>
+            <nav class="navbar">
+                <form class="form-inline my-2 my-sm-0" method="post" action="">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search Course" aria-label="Search" name="courseName" required>
+                    <button name="searchCourse" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <?php
+                        while ($row = pg_fetch_row($results)) {
+                            echo "<tr>";
+                                echo "<th>";
+                                echo "Course Title";
+                                echo "</th>";
+                                echo "<th>";
+                                echo "Faculty";
+                                echo "</th>";
+                            echo "</tr>";
+
+                            echo "<tr>";
+                                echo "<td>";
+                                echo "$row[0]";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "$row[2]";
+                                echo "</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
+        </div>
     </body>
 </html> 
 <?php
