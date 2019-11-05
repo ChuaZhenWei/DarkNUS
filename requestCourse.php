@@ -72,7 +72,7 @@ $results = pg_query($course)
                         <?php
                         while($row = pg_fetch_row($results)) {
                             echo "<tr>"; ?>
-                            <td><input type = 'radio' name = 'courseChoice' value = '<?php echo $row[0] ?>'></td>
+                            <td><input type = 'radio' name = 'courseChoice' value = '<?php echo $row[0] ?>' required></td>
                             <?php
                             echo "<td> $row[1]</td>";
                             echo "<td> $row[2]</td>";
