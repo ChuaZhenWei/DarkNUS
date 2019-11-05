@@ -13,8 +13,6 @@ if (!isset($_SESSION['user_id']))  {
     $sem = $_SESSION['sem'];
     $courseName = $_GET['cname'];
     
-    echo $courseName;
-    
     if ($role == 'Student') {
         header('location:index.php');
     }
