@@ -11,10 +11,10 @@ if (!isset($_SESSION['user_id'])) {
     $role = $_SESSION['user_role'];
     
     if(isset($_POST['searchCourse'])){       
-        if(isset($_POST['courseName']) && !empty($_POST['courseName']))
+        if(isset($_POST['courseName']))
         {  
             $word = $_POST['courseName'];
-            $query = "SELECT * FROM Courses WHERE lower(courseName) LIKE '%$word%'";
+            $query = "SELECT * FROM Courses WHERE courseName LIKE upper('%$word%')";
             $course = $query;
         }       
         $results = pg_query($course);
@@ -47,25 +47,27 @@ if (!isset($_SESSION['user_id'])) {
             <div class="card-body">
                 <table class="table">
                     <tbody>
+                        <tr>
+                            <th>
+                                Course Title
+                            </th>
+                            <th>
+                                Faculty
+                            </th>
+                        </tr>
                         <?php
-                        while ($row = pg_fetch_row($results)) {
-                            echo "<tr>";
-                                echo "<th>";
-                                echo "Course Title";
-                                echo "</th>";
-                                echo "<th>";
-                                echo "Faculty";
-                                echo "</th>";
-                            echo "</tr>";
-
-                            echo "<tr>";
-                                echo "<td>";
-                                echo "$row[0]";
-                                echo "</td>";
-                                echo "<td>";
-                                echo "$row[2]";
-                                echo "</td>";
-                            echo "</tr>";
+                        if(isset($_POST['courseName']))
+                        {
+                            while ($row = pg_fetch_row($results)) {
+                                echo "<tr>";
+                                    echo "<td>";
+                                    echo "$row[0]";
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo "$row[2]";
+                                    echo "</td>";
+                                echo "</tr>";
+                            }
                         }
                         ?>
                     </tbody>
