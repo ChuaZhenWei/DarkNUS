@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
                         Create Forum
                     </h4>
                     <div class="card-body">
-                        <label class="control-label col-sm-2" for="cName">Course Name:<b style= "padding-left: 8px"><?php echo $courseName ?></b></label><br><br>
+                        <label class="control-label col-sm-5" for="cName">Course Name:<b style= "padding-left: 8px"><?php echo $courseName ?></b></label><br><br>
                         <form class="form-horizontal" method="post" action="doCreateForum.php">
                             <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
                             <div class="form-group">
