@@ -63,67 +63,66 @@ if (!isset($_SESSION['user_id'])) {
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2>Threads</h2>
-            <div class="card">
-                <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
-                            <li class="breadcrumb-item">
-                        <?php
-                        echo "<a href='thread.php?fname=$forumName&amp;cname=$courseName'>";
-                        echo $forumName;
-                        ?>
-                        </a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
+        <div class="card">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="forum.php">Forum</a></li>
+                        <li class="breadcrumb-item">
+                    <?php
+                    echo "<a href='thread.php?fname=$forumName&amp;cname=$courseName'>";
+                    echo $forumName;
+                    ?>
+                    </a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                <?php
+                echo $threadTitle;
+                ?>
+                </li>                    
+            </ol>
+            </nav>
+            <div class="card-body">                   
+                        <h4><a href="#">
                     <?php
                     echo $threadTitle;
+                    echo "</a></h4>";
+                    $threadStarter = pg_fetch_result($results, 0, 0);
+                    $threadDetails = pg_fetch_result($results, 0, 4);
+                    echo "<p>Posted by $threadStarter</p>";
+                    echo "<hr>";
+                    echo "<p>$threadDetails</p>";
+                    echo "<br>";
                     ?>
-                    </li>                    
-                </ol>
-                </nav>
-                <div class="card-body">                   
-                            <h4><a href="#">
-                        <?php
-                        echo $threadTitle;
-                        echo "</a></h4>";
-                        $threadStarter = pg_fetch_result($results, 0, 0);
-                        $threadDetails = pg_fetch_result($results, 0, 4);
-                        echo "<p>Posted by $threadStarter</p>";
-                        echo "<hr>";
-                        echo "<p>$threadDetails</p>";
-                        echo "<br>";
-                        ?>
-                    <form method="post" action="doPost.php">
-                        <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
-                        <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
-                        <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
-                        <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <textarea name="comment" class="form-control" rows="5" id="comment" required></textarea>
-                        </div>
-                        <input type="submit" name="Action" value="Submit" class="btn btn-success">
-                    </form>
-                    <?php 
-                    if (isset($_SESSION['result'])) {
-                        echo $_SESSION['result'];
-                        unset($_SESSION['result']);
-                    } ?>
-                    <hr>
-                    <br>
-                    <?php
-                    $row = pg_fetch_row($results);
-                    while ($row = pg_fetch_row($results)) {
-                        echo "<p>Reply by $row[0]";
-                        echo "</p>";
-                        echo "<p>$row[4]</p>";
-                        if ($row[6] == $id || $role == 'Professor' || $TA == true) {
-                                echo "<a style='color:red' href='doPost.php?coursename=$row[1]&amp;forumname=$row[2]&amp;tt=$row[3]&amp;td=$row[4]&amp;lForum=$forumName&amp;lCourse=$courseName&amp;lTitle=$threadTitle'>Delete</a>";
-                        }
-                        echo "<hr>";
+                <form method="post" action="doPost.php">
+                    <input type="hidden" value="<?php echo $forumName ?>" name="forumName">
+                    <input type="hidden" value="<?php echo $courseName ?>" name="courseName">
+                    <input type="hidden" value="<?php echo $threadTitle ?>" name="threadTitle">
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea name="comment" class="form-control" rows="5" id="comment" required></textarea>
+                    </div>
+                    <input type="submit" name="Action" value="Submit" class="btn btn-success">
+                </form>
+                <?php 
+                if (isset($_SESSION['result'])) {
+                    echo $_SESSION['result'];
+                    unset($_SESSION['result']);
+                } ?>
+                <hr>
+                <br>
+                <?php
+                $row = pg_fetch_row($results);
+                while ($row = pg_fetch_row($results)) {
+                    echo "<p>Reply by $row[0]";
+                    echo "</p>";
+                    echo "<p>$row[4]</p>";
+                    if ($row[6] == $id || $role == 'Professor' || $TA == true) {
+                            echo "<a style='color:red' href='doPost.php?coursename=$row[1]&amp;forumname=$row[2]&amp;tt=$row[3]&amp;td=$row[4]&amp;lForum=$forumName&amp;lCourse=$courseName&amp;lTitle=$threadTitle'>Delete</a>";
                     }
-                    ?>
-                </div>
+                    echo "<hr>";
+                }
+                ?>
             </div>
+        </div>
     </body>
 </html> 
 <?php
