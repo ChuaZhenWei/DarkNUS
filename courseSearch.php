@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
         if(isset($_POST['courseName']))
         {  
             $word = $_POST['courseName'];
-            $query = "SELECT * FROM Courses WHERE courseName LIKE upper('%$word%')";
+            $query = "SELECT * FROM Courses WHERE upper(courseName) LIKE upper('%$word%')";
             $course = $query;
         }       
         $results = pg_query($course);
