@@ -13,10 +13,19 @@ if (!isset($_SESSION['user_id'])) {
     $semester = $_SESSION['sem'];
 
     if ($role == 'Student') {
+        /* $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, B.courseName, 
+            B.tutID, TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadcount
+            FROM Belongs B NATURAL JOIN Tutorial_Groups TG
+            WHERE B.studID =  '$id' AND B.acadYear = $acadYear AND B.sem = $semester"; */
         $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, B.courseName, 
             B.tutID, TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadcount
             FROM Belongs B NATURAL JOIN Tutorial_Groups TG
-            WHERE B.studID =  '$id' AND B.acadYear = $acadYear AND B.sem = $semester";
+            WHERE B.studID =  '$id' AND B.acadYear = $acadYear AND B.sem = $semester
+            UNION
+            SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, TA.courseName, 
+            TA.tutID, TG.tutDay, TG.startTime, TG.endTime, TG.maxHeadCount
+            FROM Teaching_Assistants TA NATURAL JOIN Tutorial_Groups TG
+            WHERE TA.studID = '$id' AND TA.acadYear = $acadYear AND TA.sem = $semester";
 
     } else if ($role == 'Professor') {
         $tutorial = "SELECT ROW_NUMBER() OVER (ORDER BY NULL) AS num, T.courseName, TG.tutID, 

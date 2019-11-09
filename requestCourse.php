@@ -86,6 +86,13 @@ $results = pg_query($course)
                         </tbody>
                     </table>
                     <input type = "Submit" name = "Action" value = "Enroll Course" class="btn btn-primary">
+                    <?php
+                    if (isset($_SESSION['Adding'])) {
+                        $message = $_SESSION['Adding'];
+                        echo "<div class='text-primary' style='padding-left: 15px; display:inline'>$message</div>";
+                        unset($_SESSION['Adding']);
+                    }
+                    ?>
                 </form>
             </div>
         </div>

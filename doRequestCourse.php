@@ -40,12 +40,15 @@ if (!isset($_SESSION['user_id'])){
                 VALUES ('$id', '$row[3]', '$row[0]', '$acadYear', '$sem')";
                 
             pg_query($insert);
-            
-            header('location:requestCourse.php');
         }
-    } else {
-        header('location:requestCourse.php');
+        
+        if (pg_last_notice($link)) {
+            $_SESSION['Adding'] = pg_last_notice($link);
+        } else {
+            pg_query($delete);
+        }
     }
+    header('location:requestCourse.php');
 }
 pg_close($link);
 ?>
