@@ -35,7 +35,7 @@ if (!isset($_SESSION['user_id'])) {
         {  
             $word = $_POST['threadTitle'];
             $query= "SELECT T.courseName, T.forumName, T.threadTitle, COUNT(*) AS noOfReplies
-                FROM Threads T WHERE lower(threadTitle) LIKE '%$word%' AND forumName = '$forumName' AND courseName = '$courseName'
+                FROM Threads T WHERE lower(threadTitle) LIKE lower('%$word%') AND forumName = '$forumName' AND courseName = '$courseName'
                 AND acadYear = $acadYear AND sem = $semester
                 GROUP BY T.courseName, T.acadYear, T.sem, T.forumName, T.threadTitle";
 
