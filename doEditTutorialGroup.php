@@ -58,7 +58,7 @@ if (!isset($_SESSION['user_id'])){
             header("location:editTutorialGroup.php?coursename=$courseName&tutid=$tutID");
         }
         
-        //header("location:TutorialGroup.php");
+        header("location:TutorialGroup.php");
     }
 }
 pg_close();
