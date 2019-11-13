@@ -56,9 +56,9 @@ if (!isset($_SESSION['user_id'])){
         } else if (pg_last_error($link)) {
             $_SESSION['result'] = "Nothing Changed";
             header("location:editTutorialGroup.php?coursename=$courseName&tutid=$tutID");
+        } else {
+            header("location:TutorialGroup.php");
         }
-        
-        header("location:TutorialGroup.php");
     }
 }
 pg_close();
