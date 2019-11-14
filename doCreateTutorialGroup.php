@@ -28,8 +28,15 @@ if (!isset($_SESSION['user_id'])) {
         $insert = "INSERT INTO Tutorial_Groups (profID, courseName, acadYear, sem, tutID, maxHeadCount,
             tutDay, startTime, endTime) VALUES ('$id', '$selectedCourse', $acadYear, $semester, $tutID,
             $headcount, '$selectedDay', '$startTime', '$endTime')";
-        echo $insert; 
+        
         $query = pg_query($insert);
+        
+        if ($selectedTA) {
+            $insertTA = "INSERT INTO Teaching_Assistants (studid, coursename, acadyear, sem, tutid) VALUES
+                    ('$selectedTA', '$selectedCourse', $acadYear, $semester, $tutID)";
+            pg_query($insertTA);
+        }
+        
         $message = pg_last_notice($link);
         if ($message) {
             $_SESSION['error'] = $message;
